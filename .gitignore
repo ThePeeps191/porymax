@@ -36,7 +36,8 @@ checkpoints/
 
 # Keep the 'weights/' folder structure, but ignore all content inside it
 weights/*
-!weights/.gitkeep
+# !weights/.gitkeep
+!weights/config.txt
 
 # 3. SECRETS & ENVIRONMENT VARIABLES
 .env
