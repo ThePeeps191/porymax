@@ -88,6 +88,14 @@ node pokemon-showdown start --no-security
 
 Once you have Porymax set up (via the [Setup](#setup) instructions above), run the command below to test your installation:
 
+## Team
+
+The bot is configured to use a Rain Team, and contains hardcoded heuristic rules based off of the original Smogon [forum post](https://www.smogon.com/forums/threads/peaked-3-2028-elo-soul-of-rain.3777177/) to enhance its performance.
+
+```shell
+python -m bot.run_ladder --team-file bot/teams/main_team.txt
+```
+
 ## Local Pokemon Showdown
 
 Go to `localhost:8000` and challenge the bot **PorymaxBot**. When `--no-security` is enabled on the server, you do not need passwords for yourself nor PorymaxBot, but be sure to choose an unregistered name for yourself as the local server, even with `--no-security`, still checks usernames against the global Pokemon Showdown database.
