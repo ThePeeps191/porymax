@@ -9,7 +9,7 @@ A state-of-the-art, recursive reinforcement learning agent for Pokémon Showdown
 Porymax also leverages a recursive data flywheel to continuously apply Low-Rank Adaptation (LoRA) and Conservative Q-Learning (CQL) to actively adapt to metagame shifts and new strategies in the Gen 9 OU format.
 
 <details>
-<summary><h2>Setup</h2></summary>
+<summary><h2 id="setup">Setup</h2></summary>
 
 The entire Porymax project is housed in this single repository. You must have Python 3.10+, Node.js (LTS version recommended), and Git in order to work with Porymax. To set it up locally, first clone the repository:
 
@@ -86,6 +86,8 @@ node pokemon-showdown start --no-security
 
 ## Quick Start
 
+Once you have Porymax set up (via the [Setup](#setup) instructions above), run the command below to test your installation:
+
 ## Online Pokemon Showdown
 
 ## License
@@ -94,4 +96,5 @@ Porymax is licensed under the MIT License.
 
 ## Credits
 
-- **Metamon** for training the base Kakuna model
+- **Metamon** for training the base Kakuna model and providing the model inference engine
+- **Smogon** for creating the Pokemon Showdown battle simulator
