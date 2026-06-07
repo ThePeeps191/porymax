@@ -102,7 +102,7 @@ Go to `localhost:8000` and challenge the bot **PorymaxBot**. When `--no-security
 
 ## Online Pokemon Showdown
 
-Run the following command:
+Ensure you have created an account on [Pokemon Showdown](https://play.pokemonshowdown.com) for the bot to play on and run the following command:
 
 ```shell
 python -m bot.run_ladder --public --username yourusername --password yourpassword --ladder --mcts --team-file bot/teams/main_team.txt

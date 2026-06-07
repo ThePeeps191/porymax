@@ -57,7 +57,9 @@ class PorymaxPlayer(Player):
     def teampreview(self, battle):
         if self._use_guide:
             lead = get_lead_species(battle)
-            team_list = list(battle.team.values())
+            team_list = list(battle.team.values()) or list(getattr(battle, "teampreview_team", []))
+            if not team_list:
+                return self.random_teampreview(battle)
             lead_pos = None
             for i, p in enumerate(team_list):
                 if p.species.lower() == lead:
@@ -110,9 +112,11 @@ class PorymaxPlayer(Player):
                 )
 
             action_idx = int(actions.squeeze().cpu().numpy())
+            source = "POLICY"
 
             if self._use_guide:
-                action_idx = _apply_guide(battle, action_idx, bs)
+                action_idx, trace = _apply_guide(battle, action_idx, bs)
+                _print_turn_trace(battle, source, bs["time_idx"], action_idx, trace)
 
             order = action_idx_to_order(
                 action_idx, battle, PorymaxModel.act_space()
@@ -124,6 +128,10 @@ class PorymaxPlayer(Player):
             bs["last_action_idx"] = action_idx
             bs["last_opp_hp_pct"] = _opp_hp(battle)
             bs["last_opp_species"] = _opp_species(battle)
+            if _is_iron_treads(battle) and _is_move(action_idx, "steel beam", battle):
+                bs["steel_beam_used"] = True
+            elif not _is_iron_treads(battle):
+                bs["steel_beam_used"] = False
 
             if order is None:
                 return self.choose_random_move(battle)
@@ -154,9 +162,11 @@ class PorymaxPlayer(Player):
                 act_space=PorymaxModel.act_space(),
                 n_sims=50, c_puct=1.0, depth=2,
             )
+            source = "MCTS"
 
             if self._use_guide:
-                action_idx = _apply_guide(battle, action_idx, bs)
+                action_idx, trace = _apply_guide(battle, action_idx, bs)
+                _print_turn_trace(battle, source, bs["time_idx"], action_idx, trace)
 
             order = action_idx_to_order(
                 action_idx, battle, PorymaxModel.act_space()
@@ -168,6 +178,10 @@ class PorymaxPlayer(Player):
             bs["last_action_idx"] = action_idx
             bs["last_opp_hp_pct"] = _opp_hp(battle)
             bs["last_opp_species"] = _opp_species(battle)
+            if _is_iron_treads(battle) and _is_move(action_idx, "steel beam", battle):
+                bs["steel_beam_used"] = True
+            elif not _is_iron_treads(battle):
+                bs["steel_beam_used"] = False
 
             if order is None:
                 return self.choose_random_move(battle)
@@ -189,32 +203,81 @@ class PorymaxPlayer(Player):
 _ACTION_SIZE = 13
 
 
+def _print_turn_trace(battle, source, turn, action_idx, trace):
+    active = battle.active_pokemon
+    mon = active.species if active else "???"
+    final = _action_name(action_idx, battle)
+    if not trace:
+        print(f"  {mon} T{turn}: {source} → {final}")
+        return
+    parts = " → ".join(t for t in trace if t)
+    print(f"  {mon} T{turn}: {source} → {final}  [{parts}]")
+
+
+def _action_name(action_idx, battle):
+    if 0 <= action_idx <= 3 and action_idx < len(battle.available_moves):
+        return battle.available_moves[action_idx].id.upper()
+    if 4 <= action_idx <= 8:
+        idx = action_idx - 4
+        if idx < len(battle.available_switches):
+            return f"switch {battle.available_switches[idx].species.upper()}"
+    if action_idx >= 9 and battle.can_tera:
+        idx = action_idx - 9
+        if idx < len(battle.available_moves):
+            return f"tera {battle.available_moves[idx].id.upper()}"
+    return f"idx={action_idx}"
+
+
 def _apply_guide(battle, action_idx, bs):
-    action_idx = _apply_immunity(battle, action_idx)
-    return _apply_forced_switch(battle, action_idx, bs)
+    trace = []
+    action_idx = _apply_immunity(battle, action_idx, trace)
+    action_idx = _apply_steel_beam_limit(battle, action_idx, bs, trace)
+    action_idx = _apply_forced_switch(battle, action_idx, bs, trace)
+    action_idx = _apply_hazard_check(battle, action_idx, bs, trace)
+    action_idx = _apply_move_failure(battle, action_idx, bs, trace)
+    action_idx = _apply_team_hints(battle, action_idx, trace)
+    return action_idx, trace
 
 
-def _apply_immunity(battle, action_idx):
-    for _ in range(10):
+def _apply_immunity(battle, action_idx, trace):
+    for _ in range(50):
         if not is_action_immune(action_idx, battle):
             return action_idx
+        old = _action_name(action_idx, battle)
         action_idx = _resample_any(battle)
+        new = _action_name(action_idx, battle)
+        if old != new:
+            trace.append(f"IMMUNE: {old} → {new}")
     return action_idx
 
 
-def _apply_forced_switch(battle, action_idx, bs):
+def _apply_steel_beam_limit(battle, action_idx, bs, trace):
+    used = bs.get("steel_beam_used", False)
+    if used and _is_iron_treads(battle) and _is_move(action_idx, "steel beam", battle):
+        old = _action_name(action_idx, battle)
+        action_idx = _resample_any(battle)
+        new = _action_name(action_idx, battle)
+        trace.append(f"STEEL BEAM LIMIT: {old} → {new}")
+    return action_idx
+
+
+def _apply_forced_switch(battle, action_idx, bs, trace):
     forced = get_forced_switch_actions(battle)
     if not forced:
-        return _apply_hazard_check(battle, action_idx, bs)
+        return _apply_hazard_check(battle, action_idx, bs, trace)
 
     if random.random() < 0.15:
         forced_list = sorted(forced)
-        return random.choice(forced_list)
+        old = _action_name(action_idx, battle)
+        action_idx = random.choice(forced_list)
+        new = _action_name(action_idx, battle)
+        trace.append(f"FORCED SWITCH: {old} → {new}")
+        return action_idx
 
-    return _apply_hazard_check(battle, action_idx, bs)
+    return _apply_hazard_check(battle, action_idx, bs, trace)
 
 
-def _apply_hazard_check(battle, action_idx, bs):
+def _apply_hazard_check(battle, action_idx, bs, trace):
     malus = get_hazard_malus(battle)
     is_switch = 4 <= action_idx <= 8
     is_tera_move = action_idx >= 9
@@ -226,7 +289,11 @@ def _apply_hazard_check(battle, action_idx, bs):
             target = switches[switch_idx]
             hp = target.current_hp_fraction if hasattr(target, "current_hp_fraction") else None
             if hp is not None and hp < 0.4:
-                return _resample_move(battle, action_idx, bs)
+                old = _action_name(action_idx, battle)
+                action_idx = _resample_move(battle, action_idx, bs)
+                new = _action_name(action_idx, battle)
+                trace.append(f"HAZARD BLOCK (spinner dead, {old} hp<40%): → {new}")
+                return action_idx
 
     if is_switch and malus >= 3:
         switches = battle.available_switches
@@ -235,44 +302,65 @@ def _apply_hazard_check(battle, action_idx, bs):
             target = switches[switch_idx]
             hp = target.current_hp_fraction if hasattr(target, "current_hp_fraction") else None
             if hp is not None and hp < 0.5:
-                return _resample_move(battle, action_idx, bs)
+                old = _action_name(action_idx, battle)
+                action_idx = _resample_move(battle, action_idx, bs)
+                new = _action_name(action_idx, battle)
+                trace.append(f"HAZARD WARN: {old} hp<50% → {new}")
+                return action_idx
 
     if is_switch and malus >= 4:
-        return _resample_move(battle, action_idx, bs)
+        old = _action_name(action_idx, battle)
+        action_idx = _resample_move(battle, action_idx, bs)
+        new = _action_name(action_idx, battle)
+        trace.append(f"HAZARD BLOCK (heavy hazards): {old} → {new}")
+        return action_idx
 
     if is_tera_move and malus >= 4:
-        return _resample_move(battle, action_idx, bs)
+        old = _action_name(action_idx, battle)
+        action_idx = _resample_move(battle, action_idx, bs)
+        new = _action_name(action_idx, battle)
+        trace.append(f"HAZARD BLOCK: {old} → {new}")
+        return action_idx
 
-    return _apply_move_failure(battle, action_idx, bs)
+    return _apply_move_failure(battle, action_idx, bs, trace)
 
 
-def _apply_move_failure(battle, action_idx, bs):
+def _apply_move_failure(battle, action_idx, bs, trace):
     last = bs.get("last_action_idx")
     prev_hp = bs.get("last_opp_hp_pct")
     prev_species = bs.get("last_opp_species")
 
     failed_action = get_move_failure_actions(battle, last, prev_hp, prev_species)
     if failed_action is not None and action_idx == failed_action:
-        return _resample_any(battle)
+        old = _action_name(action_idx, battle)
+        action_idx = _resample_any(battle)
+        new = _action_name(action_idx, battle)
+        trace.append(f"FAILED LAST TURN: {old} → {new}")
+        return action_idx
 
-    return _apply_team_hints(battle, action_idx)
+    return _apply_team_hints(battle, action_idx, trace)
 
 
-def _apply_team_hints(battle, action_idx):
+def _apply_team_hints(battle, action_idx, trace):
     preferred = get_preferred_actions(battle)
     if not preferred:
         return action_idx
     if action_idx in preferred:
         return action_idx
     if random.random() < 0.10:
-        return random.choice(sorted(preferred))
+        old = _action_name(action_idx, battle)
+        preferred_list = sorted(preferred)
+        if preferred_list:
+            action_idx = random.choice(preferred_list)
+            new = _action_name(action_idx, battle)
+            trace.append(f"TEAM HINT: {old} → {new}")
     return action_idx
 
 
 def _resample_move(battle, action_idx, bs):
     if random.random() < 0.30:
         return _resample_any(battle)
-    return _apply_team_hints(battle, action_idx)
+    return _apply_team_hints(battle, action_idx, [])
 
 
 def _resample_any(battle):
@@ -305,6 +393,21 @@ def _spinner_is_dead(battle):
     return False
 
 
+def _is_iron_treads(battle):
+    active = battle.active_pokemon
+    return active is not None and active.species and active.species.lower() == "iron treads"
+
+
+def _is_move(action_idx, move_id, battle):
+    if 0 <= action_idx <= 3 and action_idx < len(battle.available_moves):
+        return battle.available_moves[action_idx].id.lower() == move_id
+    if action_idx >= 9 and battle.can_tera:
+        idx = action_idx - 9
+        if idx < len(battle.available_moves):
+            return battle.available_moves[idx].id.lower() == move_id
+    return False
+
+
 def _fresh_battle_state():
     return {
         "hidden_state": None,
@@ -313,6 +416,7 @@ def _fresh_battle_state():
         "last_action_idx": None,
         "last_opp_hp_pct": None,
         "last_opp_species": None,
+        "steel_beam_used": False,
     }
 
 

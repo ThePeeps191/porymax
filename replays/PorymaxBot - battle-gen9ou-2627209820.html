@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9ou-2627209820</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9ou-2627209820<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PorymaxBot</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Heavymists</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9ou-2627209820|init|battle
+|title|Heavymists vs. PorymaxBot
+|j|☆Heavymists
+|j|☆PorymaxBot
+|gametype|singles
+|player|p1|Heavymists|skierf|1123
+|player|p2|PorymaxBot|1|1050
+|gen|9
+|tier|[Gen 9] OU
+|rated|
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Endless Battle Clause: Forcing endless battles is banned
+|rule|Species Clause: Limit one of each Pokémon
+|rule|OHKO Clause: OHKO moves are banned
+|rule|Evasion Items Clause: Evasion items are banned
+|rule|Evasion Moves Clause: Evasion moves are banned
+|rule|Evasion Abilities Clause: Evasion abilities are banned
+|rule|Sleep Moves Clause: Sleep-inducing moves are banned
+|clearpoke
+|poke|p1|Electrode-Hisui|
+|poke|p1|Meowscarada, F|
+|poke|p1|Great Tusk|
+|poke|p1|Slowbro-Galar, F|
+|poke|p1|Slither Wing|
+|poke|p1|Inteleon, M|
+|poke|p2|Pelipper, M|
+|poke|p2|Raging Bolt|
+|poke|p2|Overqwil, M|
+|poke|p2|Barraskewda, F|
+|poke|p2|Iron Treads|
+|poke|p2|Kingambit, M|
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Inteleon|Inteleon, M|100/100
+|switch|p2a: Pelipper|Pelipper, M|323/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Pelipper
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by Heavymists)
+|
+|move|p1a: Inteleon|Dark Pulse|p2a: Pelipper
+|-damage|p2a: Pelipper|162/323
+|-damage|p1a: Inteleon|91/100|[from] item: Life Orb
+|move|p2a: Pelipper|U-turn|p1a: Inteleon
+|-damage|p1a: Inteleon|75/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 65 sec grace
+|
+|switch|p2a: Barraskewda|Barraskewda, F|264/264|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Great Tusk|Great Tusk|100/100
+|move|p2a: Barraskewda|Close Combat|p1a: Great Tusk
+|-damage|p1a: Great Tusk|68/100
+|-unboost|p2a: Barraskewda|def|1
+|-unboost|p2a: Barraskewda|spd|1
+|-damage|p2a: Barraskewda|220/264|[from] item: Rocky Helmet|[of] p1a: Great Tusk
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Pelipper|Pelipper, M|162/323
+|-end|p1a: Great Tusk|Protosynthesis|[silent]
+|switch|p1a: Inteleon|Inteleon, M|75/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Inteleon|Dark Pulse|p2a: Pelipper
+|-damage|p2a: Pelipper|9/323
+|-damage|p1a: Inteleon|65/100|[from] item: Life Orb
+|move|p2a: Pelipper|U-turn|p1a: Inteleon
+|-damage|p1a: Inteleon|50/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p2a: Barraskewda|Barraskewda, F|220/264|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Barraskewda|Aqua Jet|p1a: Inteleon
+|-resisted|p1a: Inteleon
+|-damage|p1a: Inteleon|5/100
+|move|p1a: Inteleon|Dark Pulse|p2a: Barraskewda
+|-damage|p2a: Barraskewda|26/264
+|-damage|p1a: Inteleon|0 fnt|[from] item: Life Orb
+|faint|p1a: Inteleon
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p1a: Electrode|Electrode-Hisui|100/100
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Iron Treads|Iron Treads|321/321
+|-enditem|p2a: Iron Treads|Booster Energy
+|-activate|p2a: Iron Treads|ability: Quark Drive|[fromitem]
+|-start|p2a: Iron Treads|quarkdrivespe
+|move|p1a: Electrode|Volt Switch|p2a: Iron Treads
+|-immune|p2a: Iron Treads
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|j| ThePeeps191
+|
+|move|p2a: Iron Treads|Stealth Rock|p1a: Electrode
+|-sidestart|p1: Heavymists|move: Stealth Rock
+|move|p1a: Electrode|Chloroblast|p2a: Iron Treads
+|-damage|p2a: Iron Treads|0 fnt
+|faint|p2a: Iron Treads
+|-end|p2a: Iron Treads|Quark Drive|[silent]
+|-damage|p1a: Electrode|50/100|[from] Recoil
+|-damage|p1a: Electrode|41/100|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p2a: Overqwil|Overqwil, M|318/318
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Overqwil|Crunch|p1a: Electrode
+|-crit|p1a: Electrode
+|-damage|p1a: Electrode|0 fnt
+|-damage|p2a: Overqwil|239/318|[from] ability: Aftermath|[of] p1a: Electrode
+|faint|p1a: Electrode
+|-damage|p2a: Overqwil|208/318|[from] item: Life Orb
+|
+|-weather|none
+|upkeep
+|
+|switch|p1a: Great Tusk|Great Tusk|68/100
+|-damage|p1a: Great Tusk|65/100|[from] Stealth Rock
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Pelipper|Pelipper, M|9/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Pelipper
+|move|p1a: Great Tusk|Rapid Spin|p2a: Pelipper
+|-damage|p2a: Pelipper|0 fnt
+|-boost|p1a: Great Tusk|spe|1
+|-sideend|p1: Heavymists|Stealth Rock|[from] move: Rapid Spin|[of] p1a: Great Tusk
+|faint|p2a: Pelipper
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p2a: Barraskewda|Barraskewda, F|26/264
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Barraskewda|Flip Turn|p1a: Great Tusk
+|-supereffective|p1a: Great Tusk
+|-damage|p1a: Great Tusk|0 fnt
+|-damage|p2a: Barraskewda|0 fnt|[from] item: Rocky Helmet|[of] p1a: Great Tusk
+|faint|p1a: Great Tusk
+|-end|p1a: Great Tusk|Protosynthesis|[silent]
+|faint|p2a: Barraskewda
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p2a: Overqwil|Overqwil, M|208/318
+|switch|p1a: Meowscarada|Meowscarada, F|100/100
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Slowbro|Slowbro-Galar, F, shiny|100/100
+|move|p2a: Overqwil|Gunk Shot|p1a: Slowbro
+|-resisted|p1a: Slowbro
+|-damage|p1a: Slowbro|62/100
+|-damage|p2a: Overqwil|177/318|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Slowbro|68/100|[from] item: Black Sludge
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Overqwil|Crunch|p1a: Slowbro
+|-supereffective|p1a: Slowbro
+|-damage|p1a: Slowbro|0 fnt
+|faint|p1a: Slowbro
+|-damage|p2a: Overqwil|146/318|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p1a: Slither Wing|Slither Wing|100/100
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-terastallize|p2a: Overqwil|Water
+|move|p1a: Slither Wing|First Impression|p2a: Overqwil
+|-damage|p2a: Overqwil|0 fnt
+|faint|p2a: Overqwil
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p2a: Raging Bolt|Raging Bolt|422/422
+|-enditem|p2a: Raging Bolt|Booster Energy
+|-activate|p2a: Raging Bolt|ability: Protosynthesis|[fromitem]
+|-start|p2a: Raging Bolt|protosynthesisspa
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Raging Bolt|Thunder|p1a: Slither Wing
+|-damage|p1a: Slither Wing|12/100
+|move|p1a: Slither Wing|Earthquake|p2a: Raging Bolt
+|-supereffective|p2a: Raging Bolt
+|-damage|p2a: Raging Bolt|130/422
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Slither Wing|Protosynthesis|[silent]
+|switch|p1a: Meowscarada|Meowscarada, F|100/100
+|move|p2a: Raging Bolt|Thunderclap||[still]
+|-fail|p2a: Raging Bolt
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p2a: Raging Bolt|Protosynthesis|[silent]
+|switch|p2a: Kingambit|Kingambit, M|401/401
+|-activate|p2a: Kingambit|ability: Supreme Overlord
+|-start|p2a: Kingambit|fallen4|[silent]
+|move|p1a: Meowscarada|Play Rough|p2a: Kingambit
+|-start|p1a: Meowscarada|typechange|Fairy|[from] ability: Protean
+|-damage|p2a: Kingambit|224/401
+|
+|-weather|none
+|-heal|p2a: Kingambit|249/401|[from] item: Leftovers
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Kingambit|Sucker Punch|p1a: Meowscarada
+|-resisted|p1a: Meowscarada
+|-damage|p1a: Meowscarada|55/100
+|move|p1a: Meowscarada|Play Rough|p2a: Kingambit
+|-damage|p2a: Kingambit|75/401
+|
+|-heal|p2a: Kingambit|100/401|[from] item: Leftovers
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Meowscarada|Play Rough|p2a: Kingambit
+|-damage|p2a: Kingambit|0 fnt
+|faint|p2a: Kingambit
+|-end|p2a: Kingambit|fallen4|[silent]
+|
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p2a: Raging Bolt|Raging Bolt|130/422
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Meowscarada|Play Rough|p2a: Raging Bolt
+|-supereffective|p2a: Raging Bolt
+|-damage|p2a: Raging Bolt|0 fnt
+|faint|p2a: Raging Bolt
+|-end|p2a: Raging Bolt|Protosynthesis|[silent]
+|
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>
