@@ -199,6 +199,17 @@ def _rocks_are_up(battle):
     return SideCondition.STEALTH_ROCK in battle.opponent_side_conditions
 
 
+STEEL_SUPER_EFFECTIVE = {"rock", "ice", "fairy"}
+
+
+def _steel_is_super_effective(battle):
+    opp = battle.opponent_active_pokemon
+    if opp is None:
+        return False
+    opp_types = {t.name.lower() if hasattr(t, "name") else str(t).lower() for t in (opp.types or []) if t}
+    return bool(STEEL_SUPER_EFFECTIVE & opp_types)
+
+
 def _move_indices(battle, move_names):
     indices = set()
     for i, move in enumerate(battle.available_moves):
@@ -237,8 +248,10 @@ def _iron_treads_guide(battle, turn, opp_species, opp_team_species, rocks_up):
 
     if rocks_up:
         hp = battle.active_pokemon.current_hp_fraction
-        if hp is not None and hp < 0.6:
-            pref.update(_move_indices(battle, {"steel beam", "earth power", "rapid spin"}))
+        if hp is not None and hp < 0.5:
+            if _steel_is_super_effective(battle):
+                pref.update(_move_indices(battle, {"steel beam"}))
+            pref.update(_move_indices(battle, {"earth power", "rapid spin"}))
             return pref
 
     pref.update(_move_indices(battle, {"stealth rock", "rapid spin"}))
@@ -329,5 +342,11 @@ def _kingambit_guide(battle, turn, opp_species, opp_team_species):
         for t in (DRAGONITE, HYDRAPPLE, "corviknight")
     ):
         pref.update(_move_indices(battle, {"swords dance"}))
+
+    our_alive = sum(1 for p in battle.team.values() if p and not getattr(p, "fainted", False))
+    opp_alive = sum(1 for p in battle.opponent_team.values() if p and not getattr(p, "fainted", False))
+    if our_alive <= 2 and opp_alive <= 2:
+        pref.clear()
+        pref.update(_move_indices(battle, {"sucker punch"}))
 
     return pref

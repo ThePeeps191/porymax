@@ -195,8 +195,10 @@ def _apply_guide(battle, action_idx, bs):
 
 
 def _apply_immunity(battle, action_idx):
-    if is_action_immune(action_idx, battle):
-        return _resample_any(battle)
+    for _ in range(10):
+        if not is_action_immune(action_idx, battle):
+            return action_idx
+        action_idx = _resample_any(battle)
     return action_idx
 
 
@@ -216,6 +218,15 @@ def _apply_hazard_check(battle, action_idx, bs):
     malus = get_hazard_malus(battle)
     is_switch = 4 <= action_idx <= 8
     is_tera_move = action_idx >= 9
+
+    if is_switch and malus >= 1 and _spinner_is_dead(battle):
+        switches = battle.available_switches
+        switch_idx = action_idx - 4
+        if 0 <= switch_idx < len(switches):
+            target = switches[switch_idx]
+            hp = target.current_hp_fraction if hasattr(target, "current_hp_fraction") else None
+            if hp is not None and hp < 0.4:
+                return _resample_move(battle, action_idx, bs)
 
     if is_switch and malus >= 3:
         switches = battle.available_switches
@@ -285,6 +296,13 @@ def _opp_species(battle):
     if opp is None:
         return None
     return opp.species.lower()
+
+
+def _spinner_is_dead(battle):
+    for p in battle.team.values():
+        if p and p.species and p.species.lower() == "iron treads":
+            return getattr(p, "fainted", False)
+    return False
 
 
 def _fresh_battle_state():

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9ou-2627191402</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9ou-2627191402<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PorymaxBot</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">boiledpotato0101</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9ou-2627191402|init|battle
+|title|PorymaxBot vs. boiledpotato0101
+|j|☆PorymaxBot
+|j|☆boiledpotato0101
+|gametype|singles
+|player|p1|PorymaxBot|1|1032
+|player|p2|boiledpotato0101|dragontamer|1031
+|gen|9
+|tier|[Gen 9] OU
+|rated|
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Endless Battle Clause: Forcing endless battles is banned
+|rule|Species Clause: Limit one of each Pokémon
+|rule|OHKO Clause: OHKO moves are banned
+|rule|Evasion Items Clause: Evasion items are banned
+|rule|Evasion Moves Clause: Evasion moves are banned
+|rule|Evasion Abilities Clause: Evasion abilities are banned
+|rule|Sleep Moves Clause: Sleep-inducing moves are banned
+|clearpoke
+|poke|p1|Pelipper, M|
+|poke|p1|Raging Bolt|
+|poke|p1|Overqwil, F|
+|poke|p1|Barraskewda, F|
+|poke|p1|Iron Treads|
+|poke|p1|Kingambit, M|
+|poke|p2|Samurott-Hisui, M|
+|poke|p2|Gholdengo|
+|poke|p2|Dondozo, F|
+|poke|p2|Great Tusk|
+|poke|p2|Iron Valiant|
+|poke|p2|Kingambit, F|
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Pelipper|Pelipper, M|323/323
+|switch|p2a: Gholdengo|Gholdengo|100/100
+|-item|p2a: Gholdengo|Air Balloon
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|turn|1
+|
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|-enditem|p1a: Iron Treads|Booster Energy
+|-activate|p1a: Iron Treads|ability: Quark Drive|[fromitem]
+|-start|p1a: Iron Treads|quarkdrivespe
+|move|p2a: Gholdengo|Nasty Plot|p2a: Gholdengo
+|-boost|p2a: Gholdengo|spa|2
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|j| ThePeeps191
+|
+|move|p1a: Iron Treads|Steel Beam|p2a: Gholdengo
+|-resisted|p2a: Gholdengo
+|-damage|p2a: Gholdengo|69/100
+|-enditem|p2a: Gholdengo|Air Balloon
+|-damage|p1a: Iron Treads|160/321|[from] steelbeam
+|move|p2a: Gholdengo|Nasty Plot|p2a: Gholdengo
+|-boost|p2a: Gholdengo|spa|2
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Kingambit|Kingambit, M|401/401
+|move|p2a: Gholdengo|Nasty Plot|p2a: Gholdengo
+|-boost|p2a: Gholdengo|spa|2
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|
+|-end|p1a: Kingambit|fallenundefined|[silent]
+|switch|p1a: Overqwil|Overqwil, F|318/318
+|move|p2a: Gholdengo|Recover|p2a: Gholdengo
+|-heal|p2a: Gholdengo|100/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|5
+|
+|move|p1a: Overqwil|Crunch|p2a: Gholdengo
+|-supereffective|p2a: Gholdengo
+|-damage|p2a: Gholdengo|0 fnt
+|faint|p2a: Gholdengo
+|-damage|p1a: Overqwil|287/318|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|c|☆boiledpotato0101|lame
+|
+|switch|p2a: Kingambit|Kingambit, F|100/100
+|-activate|p2a: Kingambit|ability: Supreme Overlord
+|-start|p2a: Kingambit|fallen1|[silent]
+|turn|6
+|
+|move|p1a: Overqwil|Liquidation|p2a: Kingambit
+|-crit|p2a: Kingambit
+|-damage|p2a: Kingambit|25/100
+|-unboost|p2a: Kingambit|def|1
+|-damage|p1a: Overqwil|256/318|[from] item: Life Orb
+|move|p2a: Kingambit|Swords Dance|p2a: Kingambit
+|-boost|p2a: Kingambit|atk|2
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|7
+|
+|move|p1a: Overqwil|Liquidation|p2a: Kingambit
+|-damage|p2a: Kingambit|0 fnt
+|faint|p2a: Kingambit
+|-end|p2a: Kingambit|fallen1|[silent]
+|-damage|p1a: Overqwil|225/318|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|c| ThePeeps191|ts is an ai bot btw lmao
+|c|☆boiledpotato0101|whats an ai
+|c|☆boiledpotato0101|oh
+|c|☆boiledpotato0101|isnt that cheating
+|
+|switch|p2a: Samurott|Samurott-Hisui, M|100/100
+|turn|8
+|c| ThePeeps191|no bots r allowed
+|c|☆boiledpotato0101|huh
+|c| ThePeeps191|bots arent rly good tho
+|c|☆boiledpotato0101|wht
+|c| ThePeeps191|cause pokemon is rly complex
+|c|☆boiledpotato0101|oh.
+|c|☆boiledpotato0101|i didnt know
+|
+|move|p1a: Overqwil|Gunk Shot|p2a: Samurott
+|-enditem|p2a: Samurott|Focus Sash
+|-damage|p2a: Samurott|1/100
+|-damage|p1a: Overqwil|194/318|[from] item: Life Orb
+|move|p2a: Samurott|Sacred Sword|p1a: Overqwil
+|-damage|p1a: Overqwil|46/318
+|
+|-weather|none
+|upkeep
+|turn|9
+|
+|move|p2a: Samurott|Ceaseless Edge|p1a: Overqwil
+|-resisted|p1a: Overqwil
+|-damage|p1a: Overqwil|0 fnt
+|-sidestart|p1: PorymaxBot|Spikes
+|faint|p1a: Overqwil
+|
+|upkeep
+|
+|switch|p1a: Iron Treads|Iron Treads|160/321
+|-damage|p1a: Iron Treads|120/321|[from] Spikes
+|turn|10
+|
+|move|p1a: Iron Treads|Rapid Spin|p2a: Samurott
+|-damage|p2a: Samurott|0 fnt
+|-boost|p1a: Iron Treads|spe|1
+|-sideend|p1: PorymaxBot|Spikes|[from] move: Rapid Spin|[of] p1a: Iron Treads
+|faint|p2a: Samurott
+|
+|upkeep
+|
+|switch|p2a: Dondozo|Dondozo, F|100/100
+|turn|11
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Pelipper|Pelipper, M|323/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|move|p2a: Dondozo|Curse|p2a: Dondozo
+|-unboost|p2a: Dondozo|spe|1
+|-boost|p2a: Dondozo|atk|1
+|-boost|p2a: Dondozo|def|1
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|12
+|
+|move|p1a: Pelipper|Hurricane|p2a: Dondozo
+|-damage|p2a: Dondozo|65/100
+|move|p2a: Dondozo|Curse|p2a: Dondozo
+|-unboost|p2a: Dondozo|spe|1
+|-boost|p2a: Dondozo|atk|1
+|-boost|p2a: Dondozo|def|1
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Dondozo|71/100|[from] item: Leftovers
+|upkeep
+|turn|13
+|
+|move|p1a: Pelipper|Hurricane|p2a: Dondozo
+|-damage|p2a: Dondozo|39/100
+|move|p2a: Dondozo|Curse|p2a: Dondozo
+|-unboost|p2a: Dondozo|spe|1
+|-boost|p2a: Dondozo|atk|1
+|-boost|p2a: Dondozo|def|1
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Dondozo|45/100|[from] item: Leftovers
+|upkeep
+|turn|14
+|
+|move|p1a: Pelipper|Hurricane|p2a: Dondozo
+|-damage|p2a: Dondozo|7/100
+|move|p2a: Dondozo|Curse|p2a: Dondozo
+|-unboost|p2a: Dondozo|spe|1
+|-boost|p2a: Dondozo|atk|1
+|-boost|p2a: Dondozo|def|1
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Dondozo|13/100|[from] item: Leftovers
+|upkeep
+|turn|15
+|
+|move|p1a: Pelipper|Hurricane|p2a: Dondozo
+|-crit|p2a: Dondozo
+|-damage|p2a: Dondozo|0 fnt
+|faint|p2a: Dondozo
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p2a: Great Tusk|Great Tusk|100/100
+|turn|16
+|
+|move|p2a: Great Tusk|Knock Off|p1a: Pelipper
+|-damage|p1a: Pelipper|247/323
+|-enditem|p1a: Pelipper|Damp Rock|[from] move: Knock Off|[of] p2a: Great Tusk
+|move|p1a: Pelipper|Hurricane|p2a: Great Tusk
+|-supereffective|p2a: Great Tusk
+|-damage|p2a: Great Tusk|12/100
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Great Tusk|18/100|[from] item: Leftovers
+|upkeep
+|turn|17
+|
+|move|p2a: Great Tusk|Rapid Spin|p1a: Pelipper
+|-damage|p1a: Pelipper|209/323
+|-boost|p2a: Great Tusk|spe|1
+|move|p1a: Pelipper|Weather Ball|p2a: Great Tusk
+|-supereffective|p2a: Great Tusk
+|-damage|p2a: Great Tusk|0 fnt
+|faint|p2a: Great Tusk
+|-end|p2a: Great Tusk|Protosynthesis|[silent]
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p2a: Iron Valiant|Iron Valiant|100/100
+|-enditem|p2a: Iron Valiant|Booster Energy
+|-activate|p2a: Iron Valiant|ability: Quark Drive|[fromitem]
+|-start|p2a: Iron Valiant|quarkdrivespe
+|turn|18
+|
+|move|p2a: Iron Valiant|Calm Mind|p2a: Iron Valiant
+|-boost|p2a: Iron Valiant|spa|1
+|-boost|p2a: Iron Valiant|spd|1
+|move|p1a: Pelipper|Hurricane|p2a: Iron Valiant
+|-supereffective|p2a: Iron Valiant
+|-damage|p2a: Iron Valiant|3/100
+|
+|-weather|none
+|upkeep
+|turn|19
+|
+|move|p2a: Iron Valiant|Thunderbolt|p1a: Pelipper
+|-supereffective|p1a: Pelipper
+|-damage|p1a: Pelipper|0 fnt
+|faint|p1a: Pelipper
+|
+|upkeep
+|
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|turn|20
+|
+|-terastallize|p1a: Barraskewda|Water
+|move|p1a: Barraskewda|Aqua Jet|p2a: Iron Valiant
+|-damage|p2a: Iron Valiant|0 fnt
+|faint|p2a: Iron Valiant
+|-end|p2a: Iron Valiant|Quark Drive|[silent]
+|
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>
