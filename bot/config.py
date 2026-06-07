@@ -95,7 +95,7 @@ class PorymaxSettings:
                 setattr(s, field_name, val)
         return s
 
-# env processing functions
+# .env processing functions and other helper functions
 
 def _str(settings: PorymaxSettings, field: str, env_var: str):
     val = os.environ.get(env_var)
