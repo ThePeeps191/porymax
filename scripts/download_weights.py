@@ -5,7 +5,7 @@ from huggingface_hub import hf_hub_download
 # Download the Base Kakuna Model
 REPO_ID = "jakegrigsby/metamon"
 FILENAME = "kakuna/ckpts/latest/policy.pt"
-OUTPUT_FILE = "kakunatest.pt"
+OUTPUT_FILE = "kakuna.pt"
 
 def download_weights(output_file=OUTPUT_FILE):
     HERE = os.path.dirname(os.path.abspath(__file__))
