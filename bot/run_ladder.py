@@ -96,6 +96,9 @@ def main():
         team_set = get_metamon_teams(args.format, args.team_set)
 
     account = AccountConfiguration(args.username, args.password)
+    replay_kwargs = {}
+    if args.public:
+        replay_kwargs["save_replays"] = "replays"
     player = PorymaxPlayer(
         account_configuration=account,
         server_configuration=server_config,
@@ -104,6 +107,7 @@ def main():
         temperature=args.temperature,
         mcts_enabled=args.mcts,
         team_file=args.team_file,
+        **replay_kwargs,
     )
 
     n_battles = args.battles if args.battles > 0 else 999_999
