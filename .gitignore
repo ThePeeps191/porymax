@@ -95,5 +95,8 @@ coverage.xml
 *.cover
 *steps.html
 
-# 9. EXTERNAL FOLDER
+# 9. PROJECT PLANNING FILES
+files.txt
+
+# 10. EXTERNAL FOLDER
 external/
