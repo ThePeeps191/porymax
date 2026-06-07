@@ -77,7 +77,7 @@ class PorymaxPlayer(Player):
         tag = battle.battle_tag
         opp_name = getattr(battle, "opponent_username", "???")
         our_names = [p.species for p in battle.team.values() if p]
-        opp_names = [p.species for p in battle.opponent_team.values() if p]
+        opp_names = [p.species for p in battle.teampreview_opponent_team if p]
         print(f"\n  BATTLE START: {tag}")
         print(f"  Us: {', '.join(our_names)}")
         print(f"  Them: {', '.join(opp_names)}")
