@@ -28,7 +28,7 @@ class PorymaxPlayer(Player):
         player_kwargs = {"battle_format": battle_format, **kwargs}
         if server_configuration is not None:
             player_kwargs["server_configuration"] = server_configuration
-        if username is not None:
+        if username is not None and "account_configuration" not in player_kwargs:
             from poke_env import AccountConfiguration
             player_kwargs["account_configuration"] = AccountConfiguration(username, None)
         if team is not None:

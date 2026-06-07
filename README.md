@@ -88,6 +88,10 @@ node pokemon-showdown start --no-security
 
 Once you have Porymax set up (via the [Setup](#setup) instructions above), run the command below to test your installation:
 
+## Local Pokemon Showdown
+
+Go to `localhost:8000` and challenge the bot **PorymaxBot**. When `--no-security` is enabled on the server, you do not need passwords for yourself nor PorymaxBot, but be sure to choose an unregistered name for yourself as the local server, even with `--no-security`, still checks usernames against the global Pokemon Showdown database.
+
 ## Online Pokemon Showdown
 
 ## License
