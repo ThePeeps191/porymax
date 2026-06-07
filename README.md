@@ -46,7 +46,7 @@ Then, install the rest of Porymax's dependencies from the `requirements.txt` fil
 pip install -r requirements.txt
 ```
 
-Porymax relies on [Metamon](https://github.com/UT-Austin-RPL/metamon) to run inference and train its AI models, so Metamon must also be cloned and installed for Porymax to work:
+Porymax relies on [Metamon](https://github.com/UT-Austin-RPL/metamon) to run inference and train its AI models, so Metamon must also be cloned and installed:
 
 ```shell
 mkdir external
