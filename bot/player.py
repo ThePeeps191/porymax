@@ -147,7 +147,9 @@ class PorymaxPlayer(Player):
             action_idx, new_hidden = run_mcts(
                 PorymaxModel.policy(), obs_t, rl2s_t, time_t, battle,
                 hidden_state=bs["hidden_state"],
-                n_sims=50, c_puct=1.0,
+                obs_space=PorymaxModel.obs_space(),
+                act_space=PorymaxModel.act_space(),
+                n_sims=50, c_puct=1.0, depth=2,
             )
 
             if self._use_guide:
