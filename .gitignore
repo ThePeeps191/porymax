@@ -93,10 +93,10 @@ Thumbs.db
 .tox/
 coverage.xml
 *.cover
-*steps.html
 
 # 9. PROJECT PLANNING FILES
 files.txt
+steps.html
 
 # 10. EXTERNAL FOLDER
 external/
