@@ -118,7 +118,45 @@ class PorymaxPlayer(Player):
             return self.choose_random_move(battle)
 
     def _mcts_choose(self, battle):
-        return self.choose_random_move(battle)
+        tag = battle.battle_tag
+        if tag not in self._battle_states:
+            self._battle_states[tag] = _fresh_battle_state()
+        bs = self._battle_states[tag]
+
+        try:
+            obs = battle_to_obs(
+                battle, PorymaxModel.obs_space(), PorymaxModel.act_space()
+            )
+            obs_t, rl2s_t, time_t = obs_to_tensors(
+                obs, bs["rl2s"], bs["time_idx"], PorymaxModel.device()
+            )
+
+            from bot.mcts import run_mcts
+            action_idx = run_mcts(
+                PorymaxModel.policy(), obs_t, rl2s_t, time_t, battle,
+                n_sims=50, c_puct=1.0,
+            )
+
+            if self._use_guide:
+                action_idx = _apply_guide(battle, action_idx, bs)
+
+            order = action_idx_to_order(
+                action_idx, battle, PorymaxModel.act_space()
+            )
+
+            bs["hidden_state"] = None
+            bs["rl2s"] = next_rl2s(0.0, action_idx, _ACTION_SIZE)
+            bs["time_idx"] += 1
+            bs["last_action_idx"] = action_idx
+            bs["last_opp_hp_pct"] = _opp_hp(battle)
+            bs["last_opp_species"] = _opp_species(battle)
+
+            if order is None:
+                return self.choose_random_move(battle)
+            return order
+
+        except Exception:
+            return self.choose_random_move(battle)
 
     def _battle_finished_callback(self, battle):
         self._battle_states.pop(battle.battle_tag, None)

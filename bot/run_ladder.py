@@ -44,6 +44,11 @@ def parse_args():
     p.add_argument("--battles", type=int, default=0,
                    help="Max battles to play (0 = unlimited, default: 0)")
 
+    p.add_argument("--mcts", action="store_true", default=False,
+                   help="Enable Monte Carlo Tree Search lookahead")
+    p.add_argument("--ladder", action="store_true", default=False,
+                   help="Enter Showdown ladder matchmaking instead of waiting for challenges")
+
     p.add_argument("--checkpoint", type=str, default=None,
                    help="Override checkpoint path (default: weights/kakuna.pt)")
     p.add_argument("--device", type=str, default=None,
@@ -97,25 +102,32 @@ def main():
         team=team_set,
         battle_format=args.format,
         temperature=args.temperature,
+        mcts_enabled=args.mcts,
         team_file=args.team_file,
     )
 
     n_battles = args.battles if args.battles > 0 else 999_999
     label = "public server" if args.public else "local server"
+    mcts_label = " + MCTS" if args.mcts else ""
     guide_label = " (team guide active)" if player._use_guide else ""
     print(
-        f"Bot '{args.username}' running on {label}{guide_label} "
+        f"Bot '{args.username}' running on {label}{mcts_label}{guide_label} "
         f"(format: {args.format}, battles: {n_battles if args.battles > 0 else 'unlimited'})"
     )
-    print("Accepting challenges. Press Ctrl+C to stop.")
 
-    try:
-        asyncio.run(player.accept_challenges(None, n_battles))
-    except KeyboardInterrupt:
-        pass
-    finally:
-        player.close()
-        print("Shut down.")
+    if args.ladder:
+        print("Entering ladder matchmaking...")
+        asyncio.run(player.ladder(n_battles))
+        print("Ladder session finished.")
+    else:
+        print("Accepting challenges. Press Ctrl+C to stop.")
+        try:
+            asyncio.run(player.accept_challenges(None, n_battles))
+        except KeyboardInterrupt:
+            pass
+
+    player.close()
+    print("Shut down.")
 
 
 if __name__ == "__main__":
