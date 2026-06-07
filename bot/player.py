@@ -67,9 +67,21 @@ class PorymaxPlayer(Player):
         return self.random_teampreview(battle)
 
     def choose_move(self, battle):
+        if battle.battle_tag not in self._battle_states:
+            self._on_battle_start(battle)
         if self._mcts_enabled:
             return self._mcts_choose(battle)
         return self._policy_choose(battle)
+
+    def _on_battle_start(self, battle):
+        tag = battle.battle_tag
+        opp_name = getattr(battle, "opponent_username", "???")
+        our_names = [p.species for p in battle.team.values() if p]
+        opp_names = [p.species for p in battle.opponent_team.values() if p]
+        print(f"\n  BATTLE START: {tag}")
+        print(f"  Us: {', '.join(our_names)}")
+        print(f"  Them: {', '.join(opp_names)}")
+        print(f"  Spectate: https://play.pokemonshowdown.com/{tag}\n")
 
     def _policy_choose(self, battle):
         tag = battle.battle_tag
@@ -159,7 +171,13 @@ class PorymaxPlayer(Player):
             return self.choose_random_move(battle)
 
     def _battle_finished_callback(self, battle):
-        self._battle_states.pop(battle.battle_tag, None)
+        tag = battle.battle_tag
+        won = getattr(battle, "won", None)
+        result = "WON" if won else ("LOST" if won is False else "TIED")
+        rating = getattr(battle, "rating", None)
+        rating_str = f" (rating: {rating})" if rating is not None else ""
+        print(f"  BATTLE END: {tag} — {result}{rating_str}\n")
+        self._battle_states.pop(tag, None)
 
 
 _ACTION_SIZE = 13
