@@ -93,3 +93,7 @@ Thumbs.db
 .tox/
 coverage.xml
 *.cover
+*steps.html
+
+# 9. EXTERNAL FOLDER
+external/

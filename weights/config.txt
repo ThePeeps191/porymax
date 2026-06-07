@@ -1,0 +1,135 @@
+import amago.agent
+import amago.experiment as amago2
+import amago.nets.actor_critic as amago3
+import amago.nets.traj_encoders as amago4
+import amago.nets.transformer as amago5
+
+# Parameters for Agent:
+# ==============================================================================
+# None.
+
+# Parameters for Discrete:
+# ==============================================================================
+Discrete.clip_prob_high = 0.99
+Discrete.clip_prob_low = 0.001
+
+# Parameters for Experiment:
+# ==============================================================================
+Experiment.always_load_latest = False
+Experiment.always_save_latest = True
+Experiment.has_dset_edit_rights = True
+Experiment.save_trajs_as = 'npz'
+Experiment.stagger_traj_file_lengths = True
+Experiment.traj_save_len = 10000000000.0
+Experiment.wandb_group_name = None
+
+# Parameters for FlashAttention:
+# ==============================================================================
+FlashAttention.window_size = (96, 0)
+
+# Parameters for MetamonAMAGOExperiment:
+# ==============================================================================
+MetamonAMAGOExperiment.agent_type = @agent.MultiTaskAgent
+MetamonAMAGOExperiment.critic_loss_weight = 12.5
+MetamonAMAGOExperiment.grad_clip = 1.0
+MetamonAMAGOExperiment.l2_coeff = 0.0001
+MetamonAMAGOExperiment.learning_rate = 0.0001
+MetamonAMAGOExperiment.lr_warmup_steps = 10000
+MetamonAMAGOExperiment.max_seq_len = 128
+MetamonAMAGOExperiment.traj_encoder_type = @traj_encoders.TformerTrajEncoder
+MetamonAMAGOExperiment.tstep_encoder_type = @MetamonPerceiverTstepEncoder
+
+# Parameters for MetamonMaskedResidualActor:
+# ==============================================================================
+MetamonMaskedResidualActor.activation = 'leaky_relu'
+MetamonMaskedResidualActor.continuous_dist_type = None
+MetamonMaskedResidualActor.dropout_p = 0.0
+MetamonMaskedResidualActor.feature_dim = 500
+MetamonMaskedResidualActor.mask_illegal_actions = True
+MetamonMaskedResidualActor.normalization = 'layer'
+MetamonMaskedResidualActor.residual_blocks = 3
+MetamonMaskedResidualActor.residual_ff_dim = 800
+
+# Parameters for MetamonPerceiverTstepEncoder:
+# ==============================================================================
+MetamonPerceiverTstepEncoder.d_model = 168
+MetamonPerceiverTstepEncoder.dropout = 0.08
+MetamonPerceiverTstepEncoder.extra_emb_dim = 18
+MetamonPerceiverTstepEncoder.latent_tokens = 8
+MetamonPerceiverTstepEncoder.max_tokens_per_turn = 128
+MetamonPerceiverTstepEncoder.n_heads = 8
+MetamonPerceiverTstepEncoder.n_layers = 10
+MetamonPerceiverTstepEncoder.numerical_tokens = 6
+MetamonPerceiverTstepEncoder.token_mask_aug = True
+
+# Parameters for Multigammas:
+# ==============================================================================
+Multigammas.continuous = [0.1, 0.9, 0.95, 0.97, 0.99, 0.995]
+Multigammas.discrete = [0.1, 0.9, 0.95, 0.97, 0.99, 0.995]
+
+# Parameters for MultiTaskAgent:
+# ==============================================================================
+MultiTaskAgent.actor_type = @MetamonMaskedResidualActor
+MultiTaskAgent.critic_type = @actor_critic.NCriticsTwoHot
+MultiTaskAgent.fake_filter = False
+MultiTaskAgent.fbc_filter_func = @agent.binary_filter
+MultiTaskAgent.gamma = 0.999
+MultiTaskAgent.num_actions_for_value_in_actor_loss = 4
+MultiTaskAgent.num_actions_for_value_in_critic_loss = 4
+MultiTaskAgent.num_critics = 6
+MultiTaskAgent.num_critics_td = 2
+MultiTaskAgent.offline_coeff = 1.0
+MultiTaskAgent.online_coeff = 0.5
+MultiTaskAgent.pass_obs_keys_to_actor = ['illegal_actions']
+MultiTaskAgent.popart = True
+MultiTaskAgent.reward_multiplier = 10.0
+MultiTaskAgent.tau = 0.008
+MultiTaskAgent.use_multigamma = True
+MultiTaskAgent.use_target_actor = True
+
+# Parameters for NCriticsTwoHot:
+# ==============================================================================
+NCriticsTwoHot.activation = 'leaky_relu'
+NCriticsTwoHot.d_hidden = 700
+NCriticsTwoHot.dropout_p = 0.0
+NCriticsTwoHot.max_return = 2100
+NCriticsTwoHot.min_return = -100
+NCriticsTwoHot.n_layers = 3
+NCriticsTwoHot.output_bins = 96
+NCriticsTwoHot.use_symlog = False
+
+# Parameters for PerceiverTurnEmbedding:
+# ==============================================================================
+# None.
+
+# Parameters for PopArtLayer:
+# ==============================================================================
+PopArtLayer.beta = 0.0005
+PopArtLayer.init_nu = 100.0
+
+# Parameters for ResidualActor:
+# ==============================================================================
+# None.
+
+# Parameters for SigmaReparam:
+# ==============================================================================
+SigmaReparam.bias = True
+SigmaReparam.fast_init = False
+
+# Parameters for TformerTrajEncoder:
+# ==============================================================================
+TformerTrajEncoder.activation = 'leaky_relu'
+TformerTrajEncoder.attention_type = @transformer.FlashAttention
+TformerTrajEncoder.d_ff = 3600
+TformerTrajEncoder.d_model = 900
+TformerTrajEncoder.dropout_attn = 0.0
+TformerTrajEncoder.dropout_emb = 0.05
+TformerTrajEncoder.dropout_ff = 0.05
+TformerTrajEncoder.dropout_qkv = 0.0
+TformerTrajEncoder.head_scaling = True
+TformerTrajEncoder.n_heads = 12
+TformerTrajEncoder.n_layers = 10
+TformerTrajEncoder.norm = 'layer'
+TformerTrajEncoder.normformer_norms = True
+TformerTrajEncoder.pos_emb = 'fixed'
+TformerTrajEncoder.sigma_reparam = True
