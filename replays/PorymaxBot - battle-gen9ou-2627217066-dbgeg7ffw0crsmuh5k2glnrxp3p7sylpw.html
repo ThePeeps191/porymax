@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9ou-2627217066-dbgeg7ffw0crsmuh5k2glnrxp3p7sylpw</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9ou-2627217066-dbgeg7ffw0crsmuh5k2glnrxp3p7sylpw<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PorymaxBot</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">boooming17</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9ou-2627217066-dbgeg7ffw0crsmuh5k2glnrxp3p7sylpw|init|battle
+|title|PorymaxBot vs. boooming17
+|j|☆PorymaxBot
+|j|☆boooming17
+|gametype|singles
+|player|p1|PorymaxBot|1|1096
+|player|p2|boooming17|pokekid|1047
+|gen|9
+|tier|[Gen 9] OU
+|rated|
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Endless Battle Clause: Forcing endless battles is banned
+|rule|Species Clause: Limit one of each Pokémon
+|rule|OHKO Clause: OHKO moves are banned
+|rule|Evasion Items Clause: Evasion items are banned
+|rule|Evasion Moves Clause: Evasion moves are banned
+|rule|Evasion Abilities Clause: Evasion abilities are banned
+|rule|Sleep Moves Clause: Sleep-inducing moves are banned
+|clearpoke
+|poke|p1|Pelipper, F|
+|poke|p1|Raging Bolt|
+|poke|p1|Overqwil, F|
+|poke|p1|Barraskewda, F|
+|poke|p1|Iron Treads|
+|poke|p1|Kingambit, M|
+|poke|p2|Dudunsparce-*, M|
+|poke|p2|Ogerpon-Wellspring, F|
+|poke|p2|Iron Crown|
+|poke|p2|Ceruledge, M|
+|poke|p2|Great Tusk|
+|poke|p2|Raging Bolt|
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Pelipper|Pelipper, F|323/323
+|switch|p2a: Dudunsparce|Dudunsparce, M|100/100
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|turn|1
+|
+|move|p2a: Dudunsparce|Stealth Rock|p1a: Pelipper
+|-sidestart|p1: PorymaxBot|move: Stealth Rock
+|move|p1a: Pelipper|U-turn|p2a: Dudunsparce
+|-damage|p2a: Dudunsparce|91/100
+|-ability|p2a: Dudunsparce|Rattled|boost
+|-boost|p2a: Dudunsparce|spe|1
+|
+|switch|p1a: Iron Treads|Iron Treads|321/321|[from] U-turn
+|-damage|p1a: Iron Treads|311/321|[from] Stealth Rock
+|-enditem|p1a: Iron Treads|Booster Energy
+|-activate|p1a: Iron Treads|ability: Quark Drive|[fromitem]
+|-start|p1a: Iron Treads|quarkdrivespe
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|
+|move|p1a: Iron Treads|Stealth Rock|p2a: Dudunsparce
+|-sidestart|p2: boooming17|move: Stealth Rock
+|move|p2a: Dudunsparce|Glare|p1a: Iron Treads
+|-status|p1a: Iron Treads|par
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|
+|move|p2a: Dudunsparce|Boomburst|p1a: Iron Treads
+|-resisted|p1a: Iron Treads
+|-damage|p1a: Iron Treads|209/321 par
+|-enditem|p2a: Dudunsparce|Throat Spray
+|-boost|p2a: Dudunsparce|spa|1|[from] item: Throat Spray
+|move|p1a: Iron Treads|Rapid Spin|p2a: Dudunsparce
+|-damage|p2a: Dudunsparce|81/100
+|-boost|p1a: Iron Treads|spe|1
+|-sideend|p1: PorymaxBot|Stealth Rock|[from] move: Rapid Spin|[of] p1a: Iron Treads
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|
+|move|p1a: Iron Treads|Steel Beam|p2a: Dudunsparce
+|-damage|p2a: Dudunsparce|33/100
+|-damage|p1a: Iron Treads|48/321 par|[from] steelbeam
+|move|p2a: Dudunsparce|Boomburst|p1a: Iron Treads
+|-resisted|p1a: Iron Treads
+|-damage|p1a: Iron Treads|0 fnt
+|faint|p1a: Iron Treads
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|turn|5
+|
+|switch|p2a: Ogerpon|Ogerpon-Wellspring, F|100/100
+|-damage|p2a: Ogerpon|88/100|[from] Stealth Rock
+|move|p1a: Barraskewda|Flip Turn|p2a: Ogerpon
+|-heal|p2a: Ogerpon|100/100|[from] ability: Water Absorb|[of] p1a: Barraskewda
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|6
+|
+|switch|p1a: Pelipper|Pelipper, F|323/323
+|move|p2a: Ogerpon|Ivy Cudgel|p1a: Pelipper|[anim] Ivy Cudgel Water
+|-resisted|p1a: Pelipper
+|-damage|p1a: Pelipper|204/323
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|7
+|
+|switch|p2a: Raging Bolt|Raging Bolt|100/100
+|-damage|p2a: Raging Bolt|88/100|[from] Stealth Rock
+|move|p1a: Pelipper|Hurricane|p2a: Raging Bolt
+|-resisted|p2a: Raging Bolt
+|-damage|p2a: Raging Bolt|70/100
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Raging Bolt|76/100|[from] item: Leftovers
+|upkeep
+|turn|8
+|
+|move|p2a: Raging Bolt|Thunderbolt|p1a: Pelipper
+|-supereffective|p1a: Pelipper
+|-damage|p1a: Pelipper|0 fnt
+|faint|p1a: Pelipper
+|
+|-weather|none
+|-heal|p2a: Raging Bolt|82/100|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Raging Bolt|Raging Bolt|422/422
+|-enditem|p1a: Raging Bolt|Booster Energy
+|-activate|p1a: Raging Bolt|ability: Protosynthesis|[fromitem]
+|-start|p1a: Raging Bolt|protosynthesisspa
+|turn|9
+|
+|-terastallize|p1a: Raging Bolt|Fairy
+|move|p1a: Raging Bolt|Draco Meteor|p2a: Raging Bolt
+|-supereffective|p2a: Raging Bolt
+|-damage|p2a: Raging Bolt|0 fnt
+|-unboost|p1a: Raging Bolt|spa|2
+|faint|p2a: Raging Bolt
+|-end|p2a: Raging Bolt|Protosynthesis|[silent]
+|
+|upkeep
+|
+|switch|p2a: Iron Crown|Iron Crown|100/100
+|-damage|p2a: Iron Crown|94/100|[from] Stealth Rock
+|-enditem|p2a: Iron Crown|Booster Energy
+|-activate|p2a: Iron Crown|ability: Quark Drive|[fromitem]
+|-start|p2a: Iron Crown|quarkdrivespe
+|turn|10
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Kingambit|Kingambit, M|401/401
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen2|[silent]
+|move|p2a: Iron Crown|Calm Mind|p2a: Iron Crown
+|-boost|p2a: Iron Crown|spa|1
+|-boost|p2a: Iron Crown|spd|1
+|
+|upkeep
+|turn|11
+|
+|-end|p1a: Kingambit|fallen2|[silent]
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|-terastallize|p2a: Iron Crown|Fighting
+|move|p2a: Iron Crown|Focus Blast|p1a: Barraskewda
+|-crit|p1a: Barraskewda
+|-damage|p1a: Barraskewda|0 fnt
+|faint|p1a: Barraskewda
+|
+|upkeep
+|
+|switch|p1a: Overqwil|Overqwil, F|318/318
+|turn|12
+|
+|switch|p1a: Kingambit|Kingambit, M|401/401
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen3|[silent]
+|move|p2a: Iron Crown|Tachyon Cutter|p1a: Kingambit
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|332/401
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|269/401
+|-hitcount|p1a: Kingambit|2
+|
+|-heal|p1a: Kingambit|294/401|[from] item: Leftovers
+|upkeep
+|turn|13
+|
+|-end|p1a: Kingambit|fallen3|[silent]
+|switch|p1a: Raging Bolt|Raging Bolt, tera:Fairy|422/422
+|move|p2a: Iron Crown|Focus Blast|p1a: Raging Bolt|[miss]
+|-miss|p2a: Iron Crown|p1a: Raging Bolt
+|
+|upkeep
+|turn|14
+|
+|move|p2a: Iron Crown|Tachyon Cutter|p1a: Raging Bolt
+|-supereffective|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|174/422
+|-supereffective|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|0 fnt
+|faint|p1a: Raging Bolt
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|-hitcount|p1: Raging Bolt|2
+|
+|upkeep
+|
+|switch|p1a: Overqwil|Overqwil, F|318/318
+|turn|15
+|
+|switch|p1a: Kingambit|Kingambit, M|294/401
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen4|[silent]
+|move|p2a: Iron Crown|Tachyon Cutter|p1a: Kingambit
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|224/401
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|152/401
+|-hitcount|p1a: Kingambit|2
+|
+|-heal|p1a: Kingambit|177/401|[from] item: Leftovers
+|upkeep
+|turn|16
+|
+|move|p2a: Iron Crown|Focus Blast|p1a: Kingambit
+|-supereffective|p1a: Kingambit
+|-damage|p1a: Kingambit|0 fnt
+|faint|p1a: Kingambit
+|-end|p1a: Kingambit|fallen4|[silent]
+|
+|upkeep
+|
+|switch|p1a: Overqwil|Overqwil, F|318/318
+|turn|17
+|
+|move|p2a: Iron Crown|Tachyon Cutter|p1a: Overqwil
+|-damage|p1a: Overqwil|144/318
+|-crit|p1a: Overqwil
+|-damage|p1a: Overqwil|0 fnt
+|faint|p1a: Overqwil
+|-hitcount|p1: Overqwil|2
+|
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

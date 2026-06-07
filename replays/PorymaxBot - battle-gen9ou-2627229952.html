@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9ou-2627229952</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9ou-2627229952<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PorymaxBot</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">2Lopunny1Sinistcha</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9ou-2627229952|init|battle
+|title|PorymaxBot vs. 2Lopunny1Sinistcha
+|j|☆PorymaxBot
+|j|☆2Lopunny1Sinistcha
+|gametype|singles
+|player|p1|PorymaxBot|1|1119
+|player|p2|2Lopunny1Sinistcha|170|1188
+|gen|9
+|tier|[Gen 9] OU
+|rated|
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Endless Battle Clause: Forcing endless battles is banned
+|rule|Species Clause: Limit one of each Pokémon
+|rule|OHKO Clause: OHKO moves are banned
+|rule|Evasion Items Clause: Evasion items are banned
+|rule|Evasion Moves Clause: Evasion moves are banned
+|rule|Evasion Abilities Clause: Evasion abilities are banned
+|rule|Sleep Moves Clause: Sleep-inducing moves are banned
+|clearpoke
+|poke|p1|Pelipper, F|
+|poke|p1|Raging Bolt|
+|poke|p1|Overqwil, F|
+|poke|p1|Barraskewda, F|
+|poke|p1|Iron Treads|
+|poke|p1|Kingambit, M|
+|poke|p2|Garganacl, F|
+|poke|p2|Donphan, F|
+|poke|p2|Rillaboom, M|
+|poke|p2|Polteageist|
+|poke|p2|Primarina, M|
+|poke|p2|Infernape, F|
+|teampreview
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by 2Lopunny1Sinistcha)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|2Lopunny1Sinistcha has 120 seconds left.
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Pelipper|Pelipper, F|323/323
+|switch|p2a: Donphan|Donphan, F|100/100
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|turn|1
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Donphan|Stealth Rock|p1a: Pelipper
+|-sidestart|p1: PorymaxBot|move: Stealth Rock
+|move|p1a: Pelipper|U-turn|p2a: Donphan
+|-damage|p2a: Donphan|93/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Iron Treads|Iron Treads|321/321|[from] U-turn
+|-damage|p1a: Iron Treads|311/321|[from] Stealth Rock
+|-enditem|p1a: Iron Treads|Booster Energy
+|-activate|p1a: Iron Treads|ability: Quark Drive|[fromitem]
+|-start|p1a: Iron Treads|quarkdrivespe
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Pelipper|Pelipper, F|323/323
+|-damage|p1a: Pelipper|243/323|[from] Stealth Rock
+|move|p2a: Donphan|Earthquake|p1a: Pelipper
+|-immune|p1a: Pelipper
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Donphan|Head Smash|p1a: Pelipper|[miss]
+|-miss|p2a: Donphan|p1a: Pelipper
+|move|p1a: Pelipper|U-turn|p2a: Donphan
+|-damage|p2a: Donphan|87/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Iron Treads|Iron Treads|311/321|[from] U-turn
+|-damage|p1a: Iron Treads|301/321|[from] Stealth Rock
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Iron Treads|Rapid Spin|p2a: Donphan
+|-damage|p2a: Donphan|79/100
+|-boost|p1a: Iron Treads|spe|1
+|-sideend|p1: PorymaxBot|Stealth Rock|[from] move: Rapid Spin|[of] p1a: Iron Treads
+|move|p2a: Donphan|Earthquake|p1a: Iron Treads
+|-supereffective|p1a: Iron Treads
+|-damage|p1a: Iron Treads|0 fnt
+|faint|p1a: Iron Treads
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Pelipper|Pelipper, F|243/323
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Donphan|Stealth Rock|p1a: Pelipper
+|-sidestart|p1: PorymaxBot|move: Stealth Rock
+|move|p1a: Pelipper|U-turn|p2a: Donphan
+|-damage|p2a: Donphan|72/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, F|264/264|[from] U-turn
+|-damage|p1a: Barraskewda|231/264|[from] Stealth Rock
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Barraskewda|Flip Turn|p2a: Donphan
+|-supereffective|p2a: Donphan
+|-damage|p2a: Donphan|0 fnt
+|faint|p2a: Donphan
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Pelipper|Pelipper, F|243/323|[from] Flip Turn
+|-damage|p1a: Pelipper|163/323|[from] Stealth Rock
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|j| ThePeeps191
+|
+|switch|p2a: Rillaboom|Rillaboom, M|100/100
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Rillaboom
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Rillaboom|Fake Out|p1a: Pelipper
+|-damage|p1a: Pelipper|125/323
+|cant|p1a: Pelipper|flinch
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Rillaboom|Knock Off|p1a: Pelipper
+|-damage|p1a: Pelipper|33/323
+|-enditem|p1a: Pelipper|Damp Rock|[from] move: Knock Off|[of] p2a: Rillaboom
+|move|p1a: Pelipper|Roost|p1a: Pelipper
+|-heal|p1a: Pelipper|195/323
+|-singleturn|p1a: Pelipper|move: Roost
+|
+|-weather|none
+|-heal|p1a: Pelipper|215/323|[from] Grassy Terrain
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Primarina|Primarina, M|100/100
+|move|p1a: Pelipper|Hurricane|p2a: Primarina|[miss]
+|-miss|p1a: Pelipper|p2a: Primarina
+|
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Overqwil|Overqwil, F|318/318
+|-damage|p1a: Overqwil|279/318|[from] Stealth Rock
+|move|p2a: Primarina|Calm Mind|p2a: Primarina
+|-boost|p2a: Primarina|spa|1
+|-boost|p2a: Primarina|spd|1
+|
+|-heal|p1a: Overqwil|298/318|[from] Grassy Terrain
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-terastallize|p2a: Primarina|Water
+|move|p1a: Overqwil|Gunk Shot|p2a: Primarina
+|-damage|p2a: Primarina|0 fnt
+|faint|p2a: Primarina
+|-damage|p1a: Overqwil|267/318|[from] item: Life Orb
+|
+|-heal|p1a: Overqwil|286/318|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|upkeep
+|
+|switch|p2a: Garganacl|Garganacl, F|100/100
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Pelipper|Pelipper, F|215/323
+|-damage|p1a: Pelipper|135/323|[from] Stealth Rock
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|move|p2a: Garganacl|Block|p1a: Pelipper
+|-activate|p1a: Pelipper|trapped
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Pelipper|Weather Ball|p2a: Garganacl
+|-supereffective|p2a: Garganacl
+|-damage|p2a: Garganacl|29/100
+|move|p2a: Garganacl|Salt Cure|p1a: Pelipper
+|-supereffective|p1a: Pelipper
+|-damage|p1a: Pelipper|57/323
+|-start|p1a: Pelipper|Salt Cure
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Garganacl|35/100|[from] item: Leftovers
+|-damage|p1a: Pelipper|0 fnt|[from] Salt Cure
+|faint|p1a: Pelipper
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, F|231/264
+|-damage|p1a: Barraskewda|198/264|[from] Stealth Rock
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Barraskewda|Flip Turn|p2a: Garganacl
+|-supereffective|p2a: Garganacl
+|-damage|p2a: Garganacl|0 fnt
+|faint|p2a: Garganacl
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Raging Bolt|Raging Bolt|422/422|[from] Flip Turn
+|-damage|p1a: Raging Bolt|370/422|[from] Stealth Rock
+|-enditem|p1a: Raging Bolt|Booster Energy
+|-activate|p1a: Raging Bolt|ability: Protosynthesis|[fromitem]
+|-start|p1a: Raging Bolt|protosynthesisspa
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p2a: Polteageist|Polteageist|100/100
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Polteageist|Shell Smash|p2a: Polteageist
+|-unboost|p2a: Polteageist|def|1
+|-unboost|p2a: Polteageist|spd|1
+|-boost|p2a: Polteageist|atk|2
+|-boost|p2a: Polteageist|spa|2
+|-boost|p2a: Polteageist|spe|2
+|move|p1a: Raging Bolt|Thunder|p2a: Polteageist
+|-enditem|p2a: Polteageist|Focus Sash
+|-damage|p2a: Polteageist|1/100
+|-status|p2a: Polteageist|par
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Raging Bolt|Thunderclap|p2a: Polteageist
+|-damage|p2a: Polteageist|0 fnt
+|faint|p2a: Polteageist
+|
+|-weather|none
+|upkeep
+|
+|switch|p2a: Rillaboom|Rillaboom, M|100/100
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Rillaboom
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Raging Bolt|Thunderclap|p2a: Rillaboom
+|-resisted|p2a: Rillaboom
+|-damage|p2a: Rillaboom|71/100
+|move|p2a: Rillaboom|Knock Off|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|279/422
+|
+|-heal|p1a: Raging Bolt|305/422|[from] Grassy Terrain
+|-heal|p2a: Rillaboom|77/100|[from] Grassy Terrain
+|-heal|p2a: Rillaboom|83/100|[from] item: Leftovers
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Infernape|Infernape, F|100/100
+|move|p1a: Raging Bolt|Draco Meteor|p2a: Infernape
+|-damage|p2a: Infernape|0 fnt
+|-unboost|p1a: Raging Bolt|spa|2
+|faint|p2a: Infernape
+|
+|-heal|p1a: Raging Bolt|331/422|[from] Grassy Terrain
+|upkeep
+|
+|switch|p2a: Rillaboom|Rillaboom, M|83/100
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Barraskewda|Barraskewda, F|198/264
+|-damage|p1a: Barraskewda|165/264|[from] Stealth Rock
+|move|p2a: Rillaboom|Fake Out|p1a: Barraskewda
+|-damage|p1a: Barraskewda|84/264
+|
+|-heal|p1a: Barraskewda|100/264|[from] Grassy Terrain
+|-heal|p2a: Rillaboom|89/100|[from] Grassy Terrain
+|-heal|p2a: Rillaboom|95/100|[from] item: Leftovers
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Rillaboom|Grassy Glide|p1a: Barraskewda
+|-supereffective|p1a: Barraskewda
+|-damage|p1a: Barraskewda|0 fnt
+|faint|p1a: Barraskewda
+|
+|-heal|p2a: Rillaboom|100/100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Overqwil|Overqwil, F|286/318
+|-damage|p1a: Overqwil|247/318|[from] Stealth Rock
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Overqwil|Gunk Shot|p2a: Rillaboom
+|-supereffective|p2a: Rillaboom
+|-crit|p2a: Rillaboom
+|-damage|p2a: Rillaboom|0 fnt
+|faint|p2a: Rillaboom
+|-damage|p1a: Overqwil|216/318|[from] item: Life Orb
+|
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

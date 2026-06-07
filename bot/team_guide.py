@@ -20,13 +20,22 @@ LEAD_VS_KYUREM = "iron treads"
 
 WATER_IMMUNE_SPECIES = {
     "ogerpon-wellspring", "vaporeon", "clodsire", "gastrodon", "quagsire",
-    "alomomola", "dondozo", "toxapex", "jellicent", "volcanion",
-    "cacturne", "parasect", "seismitoad", "politoed", "poliwrath",
-    "lapras", "mantine", "lanturn", "suicune", "maractus",
+    "jellicent", "volcanion", "cacturne", "parasect", "seismitoad",
+    "politoed", "poliwrath", "lapras", "mantine", "lanturn", "suicune",
+    "maractus",
 }
 FLASH_FIRE_SPECIES = {
     "heatran", "arcanine", "arcanine-hisui", "houndoom", "ninetales",
     "typhlosion", "typhlosion-hisui", "ceruledge", "armarouge",
+}
+
+GROUND_TYPES = {
+    "great tusk", "iron treads", "landorus-therian", "ting-lu", "gliscor",
+    "clodsire", "garchomp", "hippowdon", "excadrill", "quagsire",
+    "gastrodon", "mamoswine", "ursaluna", "sandaconda", "donphan",
+    "flygon", "swampert", "golurk", "runerigus", "toedscruel",
+    "dugtrio", "dugtrio-alola", "steelix", "seismitoad", "golem",
+    "golem-alola", "rhyperior", "krookodile", "zygarde", "landorus",
 }
 
 TYPE_IMMUNE = {
@@ -314,13 +323,9 @@ def _overqwil_guide(battle, opp_species, opp_team_species):
 def _raging_bolt_guide(battle, opp_species):
     pref = set()
 
-    # vs Ground types: DON'T Thunder — switch is preferred (handled by get_forced_switch_actions)
     is_ground = opp_species in GROUND_TYPES or "tusk" in opp_species
     if not is_ground:
         pref.update(_move_indices(battle, {"thunder"}))
-
-    # Thunderclap only against predicted attacking mons — skip if opponent just used non-attack
-    pref.update(_move_indices(battle, {"thunderclap"}))
 
     if opp_species in ("kyurem", GLOWKING, ZAMAZENTA):
         pref.update(_move_indices(battle, {"draco meteor"}))

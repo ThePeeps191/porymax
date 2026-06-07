@@ -1,0 +1,60 @@
+Dragonite @ Leftovers  
+Ability: Multiscale  
+Tera Type: Flying  
+EVs: 252 Atk / 4 Def / 252 Spe  
+Jolly Nature  
+- Dragon Dance  
+- Tera Blast  
+- Earthquake  
+- Substitute  
+
+Ogerpon-Cornerstone (F) @ Cornerstone Mask  
+Ability: Sturdy  
+Tera Type: Rock  
+EVs: 252 Atk / 4 Def / 252 Spe  
+Jolly Nature  
+- Swords Dance  
+- Ivy Cudgel  
+- Power Whip  
+- Low Kick  
+
+Hatterene (F) @ Rocky Helmet  
+Ability: Magic Bounce  
+Tera Type: Water  
+EVs: 252 HP / 204 Def / 52 Spe  
+Bold Nature  
+- Psychic Noise  
+- Draining Kiss  
+- Pain Split  
+- Nuzzle  
+
+Iron Treads @ Air Balloon  
+Ability: Quark Drive  
+Tera Type: Fire  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Stealth Rock  
+- Earthquake  
+- Knock Off  
+- Rapid Spin  
+
+Kingambit @ Leftovers  
+Ability: Supreme Overlord  
+Tera Type: Ghost  
+EVs: 252 Atk / 4 Def / 252 Spe  
+Jolly Nature  
+- Swords Dance  
+- Sucker Punch  
+- Low Kick  
+- Iron Head  
+
+Zapdos @ Choice Scarf  
+Ability: Static  
+Tera Type: Fire  
+EVs: 4 Def / 252 SpA / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Thunderbolt  
+- Hurricane  
+- Volt Switch  
+- Heat Wave  

@@ -121,7 +121,12 @@ def main():
 
     if args.ladder:
         print("Entering ladder matchmaking...")
-        asyncio.run(player.ladder(n_battles))
+        try:
+            asyncio.run(player.ladder(n_battles))
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as e:
+            print(f"Ladder error: {e}")
         print("Ladder session finished.")
     else:
         print("Accepting challenges. Press Ctrl+C to stop.")
@@ -129,8 +134,13 @@ def main():
             asyncio.run(player.accept_challenges(None, n_battles))
         except KeyboardInterrupt:
             pass
+        except Exception as e:
+            print(f"Accept error: {e}")
 
-    player.close()
+    try:
+        player.close()
+    except AttributeError:
+        pass
     print("Shut down.")
 
 

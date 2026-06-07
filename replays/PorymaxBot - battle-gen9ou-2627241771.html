@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9ou-2627241771</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9ou-2627241771<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PorymaxBot</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Upbeatostrich</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9ou-2627241771|init|battle
+|title|PorymaxBot vs. Upbeatostrich
+|j|☆PorymaxBot
+|j|☆Upbeatostrich
+|gametype|singles
+|player|p1|PorymaxBot|1|1150
+|player|p2|Upbeatostrich|striker|1177
+|gen|9
+|tier|[Gen 9] OU
+|rated|
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Endless Battle Clause: Forcing endless battles is banned
+|rule|Species Clause: Limit one of each Pokémon
+|rule|OHKO Clause: OHKO moves are banned
+|rule|Evasion Items Clause: Evasion items are banned
+|rule|Evasion Moves Clause: Evasion moves are banned
+|rule|Evasion Abilities Clause: Evasion abilities are banned
+|rule|Sleep Moves Clause: Sleep-inducing moves are banned
+|clearpoke
+|poke|p1|Pelipper, M|
+|poke|p1|Raging Bolt|
+|poke|p1|Overqwil, M|
+|poke|p1|Barraskewda, M|
+|poke|p1|Iron Treads|
+|poke|p1|Kingambit, M|
+|poke|p2|Alomomola, F|
+|poke|p2|Grafaiai, F|
+|poke|p2|Clodsire, F|
+|poke|p2|Salazzle, F|
+|poke|p2|Ting-Lu|
+|poke|p2|Altaria, F|
+|teampreview
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by Upbeatostrich)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Pelipper|Pelipper, M|323/323
+|switch|p2a: Mole|Grafaiai, F, shiny|100/100
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|turn|1
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|-enditem|p1a: Iron Treads|Booster Energy
+|-activate|p1a: Iron Treads|ability: Quark Drive|[fromitem]
+|-start|p1a: Iron Treads|quarkdrivespe
+|move|p2a: Mole|Toxic|p1a: Iron Treads
+|-immune|p1a: Iron Treads
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Mr. Fish|Alomomola, F, shiny|100/100
+|move|p1a: Iron Treads|Stealth Rock|p2a: Mr. Fish
+|-sidestart|p2: Upbeatostrich|move: Stealth Rock
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Raging Bolt|Raging Bolt|422/422
+|-enditem|p1a: Raging Bolt|Booster Energy
+|-activate|p1a: Raging Bolt|ability: Protosynthesis|[fromitem]
+|-start|p1a: Raging Bolt|protosynthesisspa
+|move|p2a: Mr. Fish|Whirlpool|p1a: Raging Bolt
+|-resisted|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|404/422
+|-activate|p1a: Raging Bolt|move: Whirlpool|[of] p2a: Mr. Fish
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Raging Bolt|352/422|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Protect|p2a: Mr. Fish
+|-singleturn|p2a: Mr. Fish|Protect
+|move|p1a: Raging Bolt|Draco Meteor|p2a: Mr. Fish
+|-activate|p2a: Mr. Fish|move: Protect
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Raging Bolt|300/422|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Smiles|Clodsire, F|100/100
+|move|p1a: Raging Bolt|Thunder|p2a: Smiles
+|-immune|p2a: Smiles
+|
+|-weather|RainDance|[upkeep]
+|-end|p1a: Raging Bolt|Whirlpool|[partiallytrapped]|[silent]
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|move|p2a: Smiles|Toxic Spikes|p1a: Iron Treads
+|-sidestart|p1: PorymaxBot|move: Toxic Spikes
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Mr. Fish|Alomomola, F, shiny|100/100
+|move|p1a: Iron Treads|Rapid Spin|p2a: Mr. Fish
+|-damage|p2a: Mr. Fish|94/100
+|-boost|p1a: Iron Treads|spe|1
+|-sideend|p1: PorymaxBot|Toxic Spikes|[from] move: Rapid Spin|[of] p1a: Iron Treads
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Raging Bolt|Raging Bolt|300/422
+|move|p2a: Mr. Fish|Whirlpool|p1a: Raging Bolt
+|-resisted|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|283/422
+|-activate|p1a: Raging Bolt|move: Whirlpool|[of] p2a: Mr. Fish
+|
+|-weather|none
+|-damage|p1a: Raging Bolt|231/422|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Protect|p2a: Mr. Fish
+|-singleturn|p2a: Mr. Fish|Protect
+|move|p1a: Raging Bolt|Draco Meteor|p2a: Mr. Fish
+|-activate|p2a: Mr. Fish|move: Protect
+|
+|-damage|p1a: Raging Bolt|179/422|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Smiles|Clodsire, F|100/100
+|move|p1a: Raging Bolt|Thunder|p2a: Smiles
+|-immune|p2a: Smiles
+|
+|-end|p1a: Raging Bolt|Whirlpool|[partiallytrapped]|[silent]
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|move|p2a: Smiles|Toxic Spikes|p1a: Iron Treads
+|-sidestart|p1: PorymaxBot|move: Toxic Spikes
+|
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Mr. Fish|Alomomola, F, shiny|100/100
+|move|p1a: Iron Treads|Rapid Spin|p2a: Mr. Fish
+|-crit|p2a: Mr. Fish
+|-damage|p2a: Mr. Fish|92/100
+|-boost|p1a: Iron Treads|spe|1
+|-sideend|p1: PorymaxBot|Toxic Spikes|[from] move: Rapid Spin|[of] p1a: Iron Treads
+|
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Raging Bolt|Raging Bolt|179/422
+|move|p2a: Mr. Fish|Whirlpool|p1a: Raging Bolt|[miss]
+|-miss|p2a: Mr. Fish|p1a: Raging Bolt
+|
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Kingambit|Kingambit, M|401/401
+|move|p2a: Mr. Fish|Protect||[still]
+|-fail|p2a: Mr. Fish
+|
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Smack|Salazzle, F, shiny|100/100
+|-end|p1a: Kingambit|fallenundefined|[silent]
+|switch|p1a: Raging Bolt|Raging Bolt|179/422
+|
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Pelipper|Pelipper, M|323/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|move|p2a: Smack|Fake Out|p1a: Pelipper
+|-damage|p1a: Pelipper|308/323
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Smiles|Clodsire, F|100/100
+|move|p1a: Pelipper|U-turn|p2a: Smiles
+|-resisted|p2a: Smiles
+|-damage|p2a: Smiles|97/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Iron Treads|Iron Treads|321/321|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Mr. Fish|Alomomola, F, shiny|100/100
+|move|p1a: Iron Treads|Rapid Spin|p2a: Mr. Fish
+|-damage|p2a: Mr. Fish|94/100
+|-boost|p1a: Iron Treads|spe|1
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Pelipper|Pelipper, M|308/323
+|move|p2a: Mr. Fish|Whirlpool|p1a: Pelipper
+|-resisted|p1a: Pelipper
+|-damage|p1a: Pelipper|289/323
+|-activate|p1a: Pelipper|move: Whirlpool|[of] p2a: Mr. Fish
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|249/323|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Protect|p2a: Mr. Fish
+|-singleturn|p2a: Mr. Fish|Protect
+|move|p1a: Pelipper|Hurricane|p2a: Mr. Fish
+|-activate|p2a: Mr. Fish|move: Protect
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|209/323|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Wish|p2a: Mr. Fish
+|move|p1a: Pelipper|Roost|p1a: Pelipper
+|-heal|p1a: Pelipper|323/323
+|-singleturn|p1a: Pelipper|move: Roost
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|283/323|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Chilling Water|p1a: Pelipper
+|-resisted|p1a: Pelipper
+|-damage|p1a: Pelipper|252/323
+|-unboost|p1a: Pelipper|atk|1
+|move|p1a: Pelipper|U-turn|p2a: Mr. Fish
+|-damage|p2a: Mr. Fish|91/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Raging Bolt|Raging Bolt|179/422|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Mr. Fish|100/100|[from] move: Wish|[wisher] Mr. Fish
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Pelipper|Pelipper, M|252/323
+|move|p2a: Mr. Fish|Protect||[still]
+|-fail|p2a: Mr. Fish
+|
+|-weather|none
+|upkeep
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Whirlpool|p1a: Pelipper|[miss]
+|-miss|p2a: Mr. Fish|p1a: Pelipper
+|move|p1a: Pelipper|Hurricane|p2a: Mr. Fish|[miss]
+|-miss|p1a: Pelipper|p2a: Mr. Fish
+|
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Whirlpool|p1a: Pelipper
+|-resisted|p1a: Pelipper
+|-damage|p1a: Pelipper|237/323
+|-activate|p1a: Pelipper|move: Whirlpool|[of] p2a: Mr. Fish
+|move|p1a: Pelipper|U-turn|p2a: Mr. Fish
+|-damage|p2a: Mr. Fish|95/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Raging Bolt|Raging Bolt|179/422|[from] U-turn
+|
+|upkeep
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-terastallize|p1a: Raging Bolt|Fairy
+|move|p2a: Mr. Fish|Protect|p2a: Mr. Fish
+|-singleturn|p2a: Mr. Fish|Protect
+|move|p1a: Raging Bolt|Thunderclap||[still]
+|-fail|p1a: Raging Bolt
+|
+|upkeep
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Pelipper|Pelipper, M|237/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|switch|p2a: Smack|Salazzle, F, shiny|100/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Smack|Fake Out|p1a: Pelipper
+|-damage|p1a: Pelipper|221/323
+|cant|p1a: Pelipper|flinch
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Smiles|Clodsire, F|97/100
+|move|p1a: Pelipper|Weather Ball|p2a: Smiles
+|-heal|p2a: Smiles|100/100|[from] ability: Water Absorb|[of] p1a: Pelipper
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Mr. Fish|Alomomola, F, shiny|100/100
+|move|p1a: Pelipper|Roost|p1a: Pelipper
+|-heal|p1a: Pelipper|323/323
+|-singleturn|p1a: Pelipper|move: Roost
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Whirlpool|p1a: Pelipper|[miss]
+|-miss|p2a: Mr. Fish|p1a: Pelipper
+|move|p1a: Pelipper|U-turn|p2a: Mr. Fish
+|-damage|p2a: Mr. Fish|95/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Raging Bolt|Raging Bolt, tera:Fairy|179/422|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|32
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Smiles|Clodsire, F|100/100
+|move|p1a: Raging Bolt|Draco Meteor|p2a: Smiles
+|-damage|p2a: Smiles|51/100
+|-unboost|p1a: Raging Bolt|spa|2
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|33
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Raging Bolt|Thunderclap||[still]
+|-fail|p1a: Raging Bolt
+|move|p2a: Smiles|Recover|p2a: Smiles
+|-heal|p2a: Smiles|100/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|34
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|switch|p2a: Smack|Salazzle, F, shiny|100/100
+|
+|-weather|none
+|upkeep
+|turn|35
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Pelipper|Pelipper, M|323/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|move|p2a: Smack|Toxic|p1a: Pelipper
+|-status|p1a: Pelipper|tox
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|303/323 tox|[from] psn
+|upkeep
+|turn|36
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Smiles|Clodsire, F|100/100
+|move|p1a: Pelipper|U-turn|p2a: Smiles
+|-resisted|p2a: Smiles
+|-damage|p2a: Smiles|97/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Iron Treads|Iron Treads|321/321|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|37
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Raging Bolt|Raging Bolt, tera:Fairy|179/422
+|switch|p2a: Mr. Fish|Alomomola, F, shiny|100/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|38
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Pelipper|Pelipper, M|303/323 tox
+|move|p2a: Mr. Fish|Protect||[still]
+|-fail|p2a: Mr. Fish
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|283/323 tox|[from] psn
+|upkeep
+|turn|39
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Protect|p2a: Mr. Fish
+|-singleturn|p2a: Mr. Fish|Protect
+|move|p1a: Pelipper|U-turn|p2a: Mr. Fish
+|-activate|p2a: Mr. Fish|move: Protect
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|243/323 tox|[from] psn
+|upkeep
+|turn|40
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Whistle|Ting-Lu|100/100
+|-ability|p2a: Whistle|Vessel of Ruin
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|41
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Pelipper|Pelipper, M|243/323 tox
+|move|p2a: Whistle|Ruination|p1a: Pelipper
+|-damage|p1a: Pelipper|122/323 tox
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|102/323 tox|[from] psn
+|upkeep
+|turn|42
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Whistle|Stealth Rock|p1a: Pelipper
+|-sidestart|p1: PorymaxBot|move: Stealth Rock
+|move|p1a: Pelipper|U-turn|p2a: Whistle
+|-supereffective|p2a: Whistle
+|-damage|p2a: Whistle|92/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, M|264/264|[from] U-turn
+|-damage|p1a: Barraskewda|231/264|[from] Stealth Rock
+|
+|-weather|none
+|upkeep
+|turn|43
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-terastallize|p2a: Whistle|Ghost
+|move|p1a: Barraskewda|Close Combat|p2a: Whistle
+|-immune|p2a: Whistle
+|move|p2a: Whistle|Spikes|p1a: Barraskewda
+|-sidestart|p1: PorymaxBot|Spikes
+|
+|upkeep
+|turn|44
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Pelipper|Pelipper, M|102/323 tox
+|-damage|p1a: Pelipper|22/323 tox|[from] Stealth Rock
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|switch|p2a: Smack|Salazzle, F, shiny|100/100
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|2/323 tox|[from] psn
+|upkeep
+|turn|45
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Smack|Fake Out|p1a: Pelipper
+|-damage|p1a: Pelipper|0 fnt
+|faint|p1a: Pelipper
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Kingambit|Kingambit, M|401/401
+|-damage|p1a: Kingambit|376/401|[from] Stealth Rock
+|-damage|p1a: Kingambit|326/401|[from] Spikes
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen1|[silent]
+|turn|46
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Kingambit|fallen1|[silent]
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|-damage|p1a: Iron Treads|311/321|[from] Stealth Rock
+|-damage|p1a: Iron Treads|271/321|[from] Spikes
+|move|p2a: Smack|Will-O-Wisp|p1a: Iron Treads
+|-status|p1a: Iron Treads|brn
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Iron Treads|251/321 brn|[from] brn
+|upkeep
+|turn|47
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Whistle|Ting-Lu, tera:Ghost|92/100
+|-ability|p2a: Whistle|Vessel of Ruin
+|move|p1a: Iron Treads|Rapid Spin|p2a: Whistle
+|-immune|p2a: Whistle
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Iron Treads|231/321 brn|[from] brn
+|upkeep
+|turn|48
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Iron Treads|Earth Power|p2a: Whistle
+|-damage|p2a: Whistle|73/100
+|-unboost|p2a: Whistle|spd|1
+|move|p2a: Whistle|Spikes|p1a: Iron Treads
+|-sidestart|p1: PorymaxBot|Spikes
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Iron Treads|211/321 brn|[from] brn
+|upkeep
+|turn|49
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Iron Treads|Rapid Spin|p2a: Whistle
+|-immune|p2a: Whistle
+|move|p2a: Whistle|Ruination|p1a: Iron Treads
+|-damage|p1a: Iron Treads|106/321 brn
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Iron Treads|86/321 brn|[from] brn
+|upkeep
+|turn|50
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Iron Treads|Earth Power|p2a: Whistle
+|-damage|p2a: Whistle|45/100
+|move|p2a: Whistle|Spikes|p1a: Iron Treads
+|-sidestart|p1: PorymaxBot|Spikes
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Iron Treads|66/321 brn|[from] brn
+|upkeep
+|turn|51
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Iron Treads|Earth Power|p2a: Whistle
+|-damage|p2a: Whistle|17/100
+|-unboost|p2a: Whistle|spd|1
+|move|p2a: Whistle|Whirlwind|p1a: Iron Treads
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|drag|p1a: Raging Bolt|Raging Bolt, tera:Fairy|179/422
+|-damage|p1a: Raging Bolt|127/422|[from] Stealth Rock
+|-damage|p1a: Raging Bolt|22/422|[from] Spikes
+|
+|-weather|none
+|upkeep
+|turn|52
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Smiles|Clodsire, F|97/100
+|move|p1a: Raging Bolt|Thunder|p2a: Smiles
+|-immune|p2a: Smiles
+|
+|upkeep
+|turn|53
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Raging Bolt|Weather Ball|p2a: Smiles
+|-damage|p2a: Smiles|84/100
+|move|p2a: Smiles|Toxic Spikes|p1a: Raging Bolt
+|-sidestart|p1: PorymaxBot|move: Toxic Spikes
+|
+|upkeep
+|turn|54
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Raging Bolt|Thunder|p2a: Smiles
+|-immune|p2a: Smiles
+|move|p2a: Smiles|Acid Spray|p1a: Raging Bolt
+|-supereffective|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|0 fnt
+|faint|p1a: Raging Bolt
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Iron Treads|Iron Treads|66/321 brn
+|-damage|p1a: Iron Treads|56/321 brn|[from] Stealth Rock
+|-damage|p1a: Iron Treads|0 fnt|[from] Spikes
+|faint|p1a: Iron Treads
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|inactive|Time left: 150 sec this turn | 150 sec total | 10 sec grace
+|
+|switch|p1a: Kingambit|Kingambit, M|326/401
+|-damage|p1a: Kingambit|301/401|[from] Stealth Rock
+|-damage|p1a: Kingambit|201/401|[from] Spikes
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen3|[silent]
+|turn|55
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Kingambit|fallen3|[silent]
+|switch|p1a: Barraskewda|Barraskewda, M|231/264
+|-damage|p1a: Barraskewda|198/264|[from] Stealth Rock
+|-damage|p1a: Barraskewda|132/264|[from] Spikes
+|-status|p1a: Barraskewda|psn
+|switch|p2a: Mr. Fish|Alomomola, F, shiny|100/100
+|
+|-damage|p1a: Barraskewda|99/264 psn|[from] psn
+|upkeep
+|turn|56
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Barraskewda|Flip Turn|p2a: Mr. Fish
+|-resisted|p2a: Mr. Fish
+|-damage|p2a: Mr. Fish|88/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Overqwil|Overqwil, M|318/318|[from] Flip Turn
+|-damage|p1a: Overqwil|279/318|[from] Stealth Rock
+|-damage|p1a: Overqwil|200/318|[from] Spikes
+|-sideend|p1: PorymaxBot|move: Toxic Spikes|[of] p1a: Overqwil
+|move|p2a: Mr. Fish|Wish|p2a: Mr. Fish
+|
+|upkeep
+|turn|57
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Overqwil|Gunk Shot|p2a: Mr. Fish
+|-damage|p2a: Mr. Fish|48/100
+|-status|p2a: Mr. Fish|psn
+|-damage|p1a: Overqwil|169/318|[from] item: Life Orb
+|move|p2a: Mr. Fish|Whirlpool|p1a: Overqwil
+|-damage|p1a: Overqwil|142/318
+|-activate|p1a: Overqwil|move: Whirlpool|[of] p2a: Mr. Fish
+|
+|-heal|p2a: Mr. Fish|98/100 psn|[from] move: Wish|[wisher] Mr. Fish
+|-damage|p2a: Mr. Fish|85/100 psn|[from] psn
+|-damage|p1a: Overqwil|103/318|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|58
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Overqwil|Swords Dance|p1a: Overqwil
+|-boost|p1a: Overqwil|atk|2
+|move|p2a: Mr. Fish|Wish|p2a: Mr. Fish
+|
+|-damage|p2a: Mr. Fish|73/100 psn|[from] psn
+|-damage|p1a: Overqwil|64/318|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|59
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Protect|p2a: Mr. Fish
+|-singleturn|p2a: Mr. Fish|Protect
+|move|p1a: Overqwil|Gunk Shot|p2a: Mr. Fish
+|-activate|p2a: Mr. Fish|move: Protect
+|
+|-heal|p2a: Mr. Fish|100/100 psn|[from] move: Wish|[wisher] Mr. Fish
+|-damage|p2a: Mr. Fish|88/100 psn|[from] psn
+|-damage|p1a: Overqwil|25/318|[from] move: Whirlpool|[partiallytrapped]
+|upkeep
+|turn|60
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Protect|p2a: Mr. Fish
+|-singleturn|p2a: Mr. Fish|Protect
+|move|p1a: Overqwil|Gunk Shot|p2a: Mr. Fish
+|-activate|p2a: Mr. Fish|move: Protect
+|
+|-damage|p2a: Mr. Fish|76/100 psn|[from] psn
+|-damage|p1a: Overqwil|0 fnt|[from] move: Whirlpool|[partiallytrapped]
+|faint|p1a: Overqwil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, M|99/264 psn
+|-damage|p1a: Barraskewda|66/264 psn|[from] Stealth Rock
+|-damage|p1a: Barraskewda|0 fnt|[from] Spikes
+|faint|p1a: Barraskewda
+|inactive|Time left: 150 sec this turn | 150 sec total | 10 sec grace
+|
+|switch|p1a: Kingambit|Kingambit, M|201/401
+|-damage|p1a: Kingambit|176/401|[from] Stealth Rock
+|-damage|p1a: Kingambit|76/401|[from] Spikes
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen5|[silent]
+|turn|61
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Chilling Water|p1a: Kingambit
+|-damage|p1a: Kingambit|42/401
+|-unboost|p1a: Kingambit|atk|1
+|move|p1a: Kingambit|Swords Dance|p1a: Kingambit
+|-boost|p1a: Kingambit|atk|2
+|
+|-heal|p1a: Kingambit|67/401|[from] item: Leftovers
+|-damage|p2a: Mr. Fish|63/100 psn|[from] psn
+|upkeep
+|turn|62
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Mr. Fish|Wish|p2a: Mr. Fish
+|move|p1a: Kingambit|Swords Dance|p1a: Kingambit
+|-boost|p1a: Kingambit|atk|2
+|
+|-heal|p1a: Kingambit|92/401|[from] item: Leftovers
+|-damage|p2a: Mr. Fish|51/100 psn|[from] psn
+|upkeep
+|turn|63
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Whistle|Ting-Lu, tera:Ghost|17/100
+|-ability|p2a: Whistle|Vessel of Ruin
+|move|p1a: Kingambit|Kowtow Cleave|p2a: Whistle
+|-supereffective|p2a: Whistle
+|-damage|p2a: Whistle|0 fnt
+|faint|p2a: Whistle
+|
+|-heal|p1a: Kingambit|117/401|[from] item: Leftovers
+|upkeep
+|
+|switch|p2a: Squash|Altaria, F, shiny|100/100
+|turn|64
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Squash|Perish Song|p2a: Squash
+|-start|p1a: Kingambit|perish3|[silent]
+|-start|p2a: Squash|perish3|[silent]
+|-fieldactivate|move: Perish Song
+|move|p1a: Kingambit|Kowtow Cleave|p2a: Squash
+|-crit|p2a: Squash
+|-damage|p2a: Squash|0 fnt
+|faint|p2a: Squash
+|
+|-heal|p1a: Kingambit|142/401|[from] item: Leftovers
+|-start|p1a: Kingambit|perish3
+|upkeep
+|
+|switch|p2a: Smack|Salazzle, F, shiny|100/100
+|turn|65
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Smack|Fake Out|p1a: Kingambit
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|133/401
+|cant|p1a: Kingambit|flinch
+|
+|-heal|p1a: Kingambit|158/401|[from] item: Leftovers
+|-start|p1a: Kingambit|perish2
+|upkeep
+|turn|66
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Kingambit|Sucker Punch||[still]
+|-fail|p1a: Kingambit
+|move|p2a: Smack|Will-O-Wisp|p1a: Kingambit
+|-status|p1a: Kingambit|brn
+|
+|-heal|p1a: Kingambit|183/401 brn|[from] item: Leftovers
+|-damage|p1a: Kingambit|158/401 brn|[from] brn
+|-start|p1a: Kingambit|perish1
+|upkeep
+|turn|67
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Smack|Overheat|p1a: Kingambit
+|-supereffective|p1a: Kingambit
+|-damage|p1a: Kingambit|0 fnt
+|-unboost|p2a: Smack|spa|2
+|faint|p1a: Kingambit
+|-end|p1a: Kingambit|fallen5|[silent]
+|
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9ou-2627231595-0ja522pcbl0b36k5jv6af335as31v38pw</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9ou-2627231595-0ja522pcbl0b36k5jv6af335as31v38pw<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PorymaxBot</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Artichokefrfr</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9ou-2627231595-0ja522pcbl0b36k5jv6af335as31v38pw|init|battle
+|title|PorymaxBot vs. Artichokefrfr
+|j|☆PorymaxBot
+|j|☆Artichokefrfr
+|gametype|singles
+|player|p1|PorymaxBot|1|1149
+|player|p2|Artichokefrfr|blackbelt|1143
+|gen|9
+|tier|[Gen 9] OU
+|rated|
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Endless Battle Clause: Forcing endless battles is banned
+|rule|Species Clause: Limit one of each Pokémon
+|rule|OHKO Clause: OHKO moves are banned
+|rule|Evasion Items Clause: Evasion items are banned
+|rule|Evasion Moves Clause: Evasion moves are banned
+|rule|Evasion Abilities Clause: Evasion abilities are banned
+|rule|Sleep Moves Clause: Sleep-inducing moves are banned
+|clearpoke
+|poke|p1|Pelipper, M|
+|poke|p1|Raging Bolt|
+|poke|p1|Overqwil, F|
+|poke|p1|Barraskewda, F|
+|poke|p1|Iron Treads|
+|poke|p1|Kingambit, M|
+|poke|p2|Primarina, F|
+|poke|p2|Zamazenta-*|
+|poke|p2|Great Tusk|
+|poke|p2|Rillaboom, M|
+|poke|p2|Corviknight, F|
+|poke|p2|Dragapult, M|
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Pelipper|Pelipper, M|323/323
+|switch|p2a: Horseradish|Great Tusk|100/100
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|turn|1
+|
+|move|p2a: Horseradish|Stealth Rock|p1a: Pelipper
+|-sidestart|p1: PorymaxBot|move: Stealth Rock
+|move|p1a: Pelipper|U-turn|p2a: Horseradish
+|-resisted|p2a: Horseradish
+|-damage|p2a: Horseradish|98/100
+|
+|switch|p1a: Iron Treads|Iron Treads|321/321|[from] U-turn
+|-damage|p1a: Iron Treads|311/321|[from] Stealth Rock
+|-enditem|p1a: Iron Treads|Booster Energy
+|-activate|p1a: Iron Treads|ability: Quark Drive|[fromitem]
+|-start|p1a: Iron Treads|quarkdrivespe
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Horseradish|100/100|[from] item: Leftovers
+|upkeep
+|turn|2
+|j| ThePeeps191
+|
+|-terastallize|p1a: Iron Treads|Ghost
+|move|p1a: Iron Treads|Stealth Rock|p2a: Horseradish
+|-sidestart|p2: Artichokefrfr|move: Stealth Rock
+|move|p2a: Horseradish|Earthquake|p1a: Iron Treads
+|-damage|p1a: Iron Treads|190/321
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|
+|move|p1a: Iron Treads|Rapid Spin|p2a: Horseradish
+|-crit|p2a: Horseradish
+|-damage|p2a: Horseradish|92/100
+|-boost|p1a: Iron Treads|spe|1
+|-sideend|p1: PorymaxBot|Stealth Rock|[from] move: Rapid Spin|[of] p1a: Iron Treads
+|move|p2a: Horseradish|Earthquake|p1a: Iron Treads
+|-damage|p1a: Iron Treads|57/321
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Horseradish|99/100|[from] item: Leftovers
+|upkeep
+|turn|4
+|
+|move|p1a: Iron Treads|Steel Beam|p2a: Horseradish
+|-damage|p2a: Horseradish|33/100
+|-damage|p1a: Iron Treads|0 fnt|[from] steelbeam
+|faint|p1a: Iron Treads
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|move|p2a: Horseradish|Earthquake|p1: Iron Treads|[notarget]
+|-fail|p2a: Horseradish
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Horseradish|39/100|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|turn|5
+|
+|-end|p2a: Horseradish|Protosynthesis|[silent]
+|switch|p2a: Kanye|Zamazenta, shiny|100/100
+|-damage|p2a: Kanye|94/100|[from] Stealth Rock
+|-ability|p2a: Kanye|Dauntless Shield|boost
+|-boost|p2a: Kanye|def|1
+|move|p1a: Barraskewda|Flip Turn|p2a: Kanye
+|-damage|p2a: Kanye|56/100
+|
+|switch|p1a: Pelipper|Pelipper, M|323/323|[from] Flip Turn
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Kanye|62/100|[from] item: Leftovers
+|upkeep
+|turn|6
+|
+|move|p2a: Kanye|Stone Edge|p1a: Pelipper
+|-supereffective|p1a: Pelipper
+|-damage|p1a: Pelipper|185/323
+|move|p1a: Pelipper|U-turn|p2a: Kanye
+|-resisted|p2a: Kanye
+|-damage|p2a: Kanye|60/100
+|
+|switch|p1a: Raging Bolt|Raging Bolt|422/422|[from] U-turn
+|-enditem|p1a: Raging Bolt|Booster Energy
+|-activate|p1a: Raging Bolt|ability: Protosynthesis|[fromitem]
+|-start|p1a: Raging Bolt|protosynthesisspa
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Kanye|66/100|[from] item: Leftovers
+|upkeep
+|turn|7
+|
+|switch|p2a: Fish|Dragapult, M|100/100
+|-damage|p2a: Fish|88/100|[from] Stealth Rock
+|move|p1a: Raging Bolt|Weather Ball|p2a: Fish
+|-resisted|p2a: Fish
+|-damage|p2a: Fish|32/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|8
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Overqwil|Overqwil, F|318/318
+|move|p2a: Fish|Draco Meteor|p1a: Overqwil
+|-damage|p1a: Overqwil|0 fnt
+|-unboost|p2a: Fish|spa|2
+|faint|p1a: Overqwil
+|
+|-weather|none
+|upkeep
+|
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|turn|9
+|
+|switch|p2a: Drain Again|Rillaboom, M|100/100
+|-damage|p2a: Drain Again|88/100|[from] Stealth Rock
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Drain Again
+|move|p1a: Barraskewda|Aqua Jet|p2a: Drain Again
+|-resisted|p2a: Drain Again
+|-damage|p2a: Drain Again|71/100
+|
+|-heal|p2a: Drain Again|77/100|[from] Grassy Terrain
+|upkeep
+|turn|10
+|
+|switch|p1a: Raging Bolt|Raging Bolt|422/422
+|move|p2a: Drain Again|Grassy Glide|p1a: Raging Bolt
+|-resisted|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|305/422
+|
+|-heal|p2a: Drain Again|84/100|[from] Grassy Terrain
+|-heal|p1a: Raging Bolt|331/422|[from] Grassy Terrain
+|upkeep
+|turn|11
+|
+|switch|p2a: Horseradish|Great Tusk|39/100
+|-damage|p2a: Horseradish|36/100|[from] Stealth Rock
+|move|p1a: Raging Bolt|Draco Meteor|p2a: Horseradish
+|-damage|p2a: Horseradish|0 fnt
+|-unboost|p1a: Raging Bolt|spa|2
+|faint|p2a: Horseradish
+|-end|p2a: Horseradish|Protosynthesis|[silent]
+|
+|-heal|p1a: Raging Bolt|357/422|[from] Grassy Terrain
+|upkeep
+|
+|switch|p2a: Kanye|Zamazenta, shiny|66/100
+|-damage|p2a: Kanye|60/100|[from] Stealth Rock
+|turn|12
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Pelipper|Pelipper, M|185/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|move|p2a: Kanye|Iron Defense|p2a: Kanye
+|-boost|p2a: Kanye|def|2
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Kanye|66/100|[from] Grassy Terrain
+|-heal|p2a: Kanye|72/100|[from] item: Leftovers
+|upkeep
+|turn|13
+|
+|move|p2a: Kanye|Stone Edge|p1a: Pelipper
+|-supereffective|p1a: Pelipper
+|-damage|p1a: Pelipper|53/323
+|move|p1a: Pelipper|Hurricane|p2a: Kanye
+|-supereffective|p2a: Kanye
+|-damage|p2a: Kanye|11/100
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Kanye|17/100|[from] Grassy Terrain
+|-heal|p2a: Kanye|23/100|[from] item: Leftovers
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|14
+|
+|move|p2a: Kanye|Stone Edge|p1a: Pelipper
+|-supereffective|p1a: Pelipper
+|-damage|p1a: Pelipper|0 fnt
+|faint|p1a: Pelipper
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Kanye|29/100|[from] item: Leftovers
+|upkeep
+|
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|turn|15
+|
+|switch|p2a: Drain Again|Rillaboom, M|84/100
+|-damage|p2a: Drain Again|71/100|[from] Stealth Rock
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Drain Again
+|move|p1a: Barraskewda|Liquidation|p2a: Drain Again
+|-resisted|p2a: Drain Again
+|-damage|p2a: Drain Again|16/100
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Drain Again|22/100|[from] Grassy Terrain
+|upkeep
+|turn|16
+|
+|switch|p1a: Raging Bolt|Raging Bolt|357/422
+|move|p2a: Drain Again|Grassy Glide|p1a: Raging Bolt
+|-resisted|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|243/422
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Drain Again|28/100|[from] Grassy Terrain
+|-heal|p1a: Raging Bolt|269/422|[from] Grassy Terrain
+|upkeep
+|turn|17
+|
+|switch|p2a: Ferris|Primarina, F, shiny|100/100
+|-damage|p2a: Ferris|88/100|[from] Stealth Rock
+|move|p1a: Raging Bolt|Weather Ball|p2a: Ferris
+|-resisted|p2a: Ferris
+|-damage|p2a: Ferris|70/100
+|
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Raging Bolt|295/422|[from] Grassy Terrain
+|-heal|p2a: Ferris|77/100|[from] Grassy Terrain
+|upkeep
+|turn|18
+|
+|move|p1a: Raging Bolt|Thunder|p2a: Ferris
+|-supereffective|p2a: Ferris
+|-damage|p2a: Ferris|0 fnt
+|faint|p2a: Ferris
+|
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Raging Bolt|321/422|[from] Grassy Terrain
+|upkeep
+|
+|switch|p2a: Kanye|Zamazenta, shiny|29/100
+|-damage|p2a: Kanye|23/100|[from] Stealth Rock
+|turn|19
+|
+|move|p1a: Raging Bolt|Thunderclap|p2a: Kanye
+|-damage|p2a: Kanye|0 fnt
+|faint|p2a: Kanye
+|
+|-weather|none
+|-heal|p1a: Raging Bolt|347/422|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|upkeep
+|
+|switch|p2a: Fish|Dragapult, M|32/100
+|-damage|p2a: Fish|20/100|[from] Stealth Rock
+|turn|20
+|
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Kingambit|Kingambit, M|401/401
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen3|[silent]
+|-terastallize|p2a: Fish|Dragon
+|move|p2a: Fish|Draco Meteor|p1a: Kingambit
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|172/401
+|-unboost|p2a: Fish|spa|2
+|
+|-heal|p1a: Kingambit|197/401|[from] item: Leftovers
+|upkeep
+|turn|21
+|
+|switch|p2a: Eric|Corviknight, F|100/100
+|-damage|p2a: Eric|88/100|[from] Stealth Rock
+|-ability|p2a: Eric|Pressure
+|-end|p1a: Kingambit|fallen3|[silent]
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|
+|-heal|p2a: Eric|94/100|[from] item: Leftovers
+|upkeep
+|turn|22
+|
+|move|p1a: Barraskewda|Flip Turn|p2a: Eric
+|-damage|p2a: Eric|63/100
+|
+|switch|p1a: Raging Bolt|Raging Bolt|347/422|[from] Flip Turn
+|move|p2a: Eric|Brave Bird|p1a: Raging Bolt
+|-resisted|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|275/422
+|-damage|p2a: Eric|57/100|[from] Recoil
+|
+|-heal|p2a: Eric|63/100|[from] item: Leftovers
+|upkeep
+|turn|23
+|
+|switch|p2a: Fish|Dragapult, M, tera:Dragon|20/100
+|-damage|p2a: Fish|7/100|[from] Stealth Rock
+|move|p1a: Raging Bolt|Thunder|p2a: Fish
+|-resisted|p2a: Fish
+|-crit|p2a: Fish
+|-damage|p2a: Fish|0 fnt
+|faint|p2a: Fish
+|
+|upkeep
+|-message|Artichokefrfr forfeited.
+|
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

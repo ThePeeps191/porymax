@@ -137,7 +137,12 @@ class PorymaxPlayer(Player):
                 return self.choose_random_move(battle)
             return order
 
-        except Exception:
+        except Exception as e:
+            bs["time_idx"] += 1
+            bs["last_action_idx"] = -1
+            bs["last_opp_hp_pct"] = _opp_hp(battle)
+            bs["last_opp_species"] = _opp_species(battle)
+            print(f"  (silent error on {battle.active_pokemon.species if battle.active_pokemon else '?'} T{bs['time_idx']}: {e})")
             return self.choose_random_move(battle)
 
     def _mcts_choose(self, battle):
@@ -187,7 +192,11 @@ class PorymaxPlayer(Player):
                 return self.choose_random_move(battle)
             return order
 
-        except Exception:
+        except Exception as e:
+            bs["time_idx"] += 1
+            bs["last_action_idx"] = -1
+            bs["last_opp_hp_pct"] = _opp_hp(battle)
+            bs["last_opp_species"] = _opp_species(battle)
             return self.choose_random_move(battle)
 
     def _battle_finished_callback(self, battle):
@@ -264,9 +273,9 @@ def _apply_steel_beam_limit(battle, action_idx, bs, trace):
 def _apply_forced_switch(battle, action_idx, bs, trace):
     forced = get_forced_switch_actions(battle)
     if not forced:
-        return _apply_hazard_check(battle, action_idx, bs, trace)
+        return action_idx
 
-    if random.random() < 0.15:
+    if random.random() < 0.50:
         forced_list = sorted(forced)
         old = _action_name(action_idx, battle)
         action_idx = random.choice(forced_list)
@@ -274,7 +283,7 @@ def _apply_forced_switch(battle, action_idx, bs, trace):
         trace.append(f"FORCED SWITCH: {old} → {new}")
         return action_idx
 
-    return _apply_hazard_check(battle, action_idx, bs, trace)
+    return action_idx
 
 
 def _apply_hazard_check(battle, action_idx, bs, trace):
@@ -322,7 +331,7 @@ def _apply_hazard_check(battle, action_idx, bs, trace):
         trace.append(f"HAZARD BLOCK: {old} → {new}")
         return action_idx
 
-    return _apply_move_failure(battle, action_idx, bs, trace)
+    return action_idx
 
 
 def _apply_move_failure(battle, action_idx, bs, trace):
@@ -338,7 +347,7 @@ def _apply_move_failure(battle, action_idx, bs, trace):
         trace.append(f"FAILED LAST TURN: {old} → {new}")
         return action_idx
 
-    return _apply_team_hints(battle, action_idx, trace)
+    return action_idx
 
 
 def _apply_team_hints(battle, action_idx, trace):
@@ -347,7 +356,7 @@ def _apply_team_hints(battle, action_idx, trace):
         return action_idx
     if action_idx in preferred:
         return action_idx
-    if random.random() < 0.10:
+    if random.random() < 0.50:
         old = _action_name(action_idx, battle)
         preferred_list = sorted(preferred)
         if preferred_list:
@@ -369,6 +378,9 @@ def _resample_any(battle):
     all_legal = moves + switches
     if battle.can_tera:
         all_legal = all_legal + [9 + i for i in range(len(battle.available_moves))]
+    non_immune = [a for a in all_legal if not is_action_immune(a, battle)]
+    if non_immune:
+        return random.choice(non_immune)
     return random.choice(all_legal) if all_legal else 0
 
 

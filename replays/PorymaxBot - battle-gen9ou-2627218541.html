@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9ou-2627218541</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9ou-2627218541<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PorymaxBot</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Lord kastisz</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9ou-2627218541|init|battle
+|title|PorymaxBot vs. Lord kastisz
+|j|☆PorymaxBot
+|j|☆Lord kastisz
+|gametype|singles
+|player|p1|PorymaxBot|1|1068
+|player|p2|Lord kastisz|pokekid|1047
+|gen|9
+|tier|[Gen 9] OU
+|rated|
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Endless Battle Clause: Forcing endless battles is banned
+|rule|Species Clause: Limit one of each Pokémon
+|rule|OHKO Clause: OHKO moves are banned
+|rule|Evasion Items Clause: Evasion items are banned
+|rule|Evasion Moves Clause: Evasion moves are banned
+|rule|Evasion Abilities Clause: Evasion abilities are banned
+|rule|Sleep Moves Clause: Sleep-inducing moves are banned
+|clearpoke
+|poke|p1|Pelipper, M|
+|poke|p1|Raging Bolt|
+|poke|p1|Overqwil, F|
+|poke|p1|Barraskewda, M|
+|poke|p1|Iron Treads|
+|poke|p1|Kingambit, M|
+|poke|p2|Azelf|
+|poke|p2|Tornadus-Therian, M|
+|poke|p2|Iron Valiant|
+|poke|p2|Slowking-Galar, F|
+|poke|p2|Dragonite, M|
+|poke|p2|Hatterene, F|
+|teampreview
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Pelipper|Pelipper, M|323/323
+|switch|p2a: Dragonite|Dragonite, M|100/100
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by Lord kastisz)
+|
+|move|p2a: Dragonite|Metronome|p2a: Dragonite
+|move|p2a: Dragonite|Barb Barrage|p1a: Pelipper|[from] move: Metronome
+|-damage|p1a: Pelipper|280/323
+|move|p1a: Pelipper|Weather Ball|p2a: Dragonite
+|-resisted|p2a: Dragonite
+|-damage|p2a: Dragonite|89/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Dragonite|Metronome|p2a: Dragonite
+|move|p2a: Dragonite|Fairy Lock|p2a: Dragonite|[from] move: Metronome
+|-fieldactivate|move: Fairy Lock
+|move|p1a: Pelipper|Hurricane|p2a: Dragonite
+|-damage|p2a: Dragonite|55/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Dragonite|Metronome|p2a: Dragonite
+|move|p2a: Dragonite|Psycho Cut|p1a: Pelipper|[from] move: Metronome
+|-damage|p1a: Pelipper|232/323
+|move|p1a: Pelipper|U-turn|p2a: Dragonite
+|-resisted|p2a: Dragonite
+|-damage|p2a: Dragonite|51/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Overqwil|Overqwil, F|318/318|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Overqwil|Liquidation|p2a: Dragonite
+|-resisted|p2a: Dragonite
+|-damage|p2a: Dragonite|23/100
+|-unboost|p2a: Dragonite|def|1
+|-damage|p1a: Overqwil|287/318|[from] item: Life Orb
+|move|p2a: Dragonite|Metronome|p2a: Dragonite
+|move|p2a: Dragonite|Leaf Storm|p1a: Overqwil|[from] move: Metronome|[miss]
+|-miss|p2a: Dragonite|p1a: Overqwil
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Overqwil|Crunch|p2a: Dragonite
+|-damage|p2a: Dragonite|0 fnt
+|faint|p2a: Dragonite
+|-damage|p1a: Overqwil|256/318|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p2a: Slowking|Slowking-Galar, F|100/100
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Overqwil|Crunch|p2a: Slowking
+|-supereffective|p2a: Slowking
+|-damage|p2a: Slowking|7/100
+|-damage|p1a: Overqwil|203/318|[from] item: Rocky Helmet|[of] p2a: Slowking
+|-damage|p1a: Overqwil|172/318|[from] item: Life Orb
+|move|p2a: Slowking|Metronome|p2a: Slowking
+|move|p2a: Slowking|Solar Beam||[from] move: Metronome|[still]
+|-prepare|p2a: Slowking|Solar Beam
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Overqwil|Liquidation|p2a: Slowking
+|-damage|p2a: Slowking|0 fnt
+|-damage|p1a: Overqwil|119/318|[from] item: Rocky Helmet|[of] p2a: Slowking
+|faint|p2a: Slowking
+|-damage|p1a: Overqwil|88/318|[from] item: Life Orb
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p2a: Iron Valiant|Iron Valiant|100/100
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Iron Valiant|Metronome|p2a: Iron Valiant
+|move|p2a: Iron Valiant|Hydro Steam|p1a: Overqwil|[from] move: Metronome
+|-damage|p1a: Overqwil|0 fnt
+|faint|p1a: Overqwil
+|
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Pelipper|Pelipper, M|232/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Iron Valiant|Metronome|p2a: Iron Valiant
+|move|p2a: Iron Valiant|Hydro Steam|p1a: Pelipper|[from] move: Metronome
+|-resisted|p1a: Pelipper
+|-damage|p1a: Pelipper|154/323
+|move|p1a: Pelipper|U-turn|p2a: Iron Valiant
+|-resisted|p2a: Iron Valiant
+|-damage|p2a: Iron Valiant|98/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, M|264/264|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Barraskewda|Flip Turn|p2a: Iron Valiant
+|-damage|p2a: Iron Valiant|9/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Pelipper|Pelipper, M|154/323|[from] Flip Turn
+|move|p2a: Iron Valiant|Metronome|p2a: Iron Valiant
+|move|p2a: Iron Valiant|Defend Order|p2a: Iron Valiant|[from] move: Metronome
+|-boost|p2a: Iron Valiant|def|1
+|-boost|p2a: Iron Valiant|spd|1
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Iron Valiant|Metronome|p2a: Iron Valiant
+|move|p2a: Iron Valiant|Light Screen|p2a: Iron Valiant|[from] move: Metronome
+|-sidestart|p2: Lord kastisz|move: Light Screen
+|move|p1a: Pelipper|Weather Ball|p2a: Iron Valiant
+|-damage|p2a: Iron Valiant|0 fnt
+|faint|p2a: Iron Valiant
+|-end|p2a: Iron Valiant|Quark Drive|[silent]
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p2a: Tornadus|Tornadus-Therian, M|100/100
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Raging Bolt|Raging Bolt|422/422
+|-enditem|p1a: Raging Bolt|Booster Energy
+|-activate|p1a: Raging Bolt|ability: Protosynthesis|[fromitem]
+|-start|p1a: Raging Bolt|protosynthesisspa
+|move|p2a: Tornadus|Metronome|p2a: Tornadus
+|move|p2a: Tornadus|Spite||[from] move: Metronome|[still]
+|-fail|p2a: Tornadus
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Hatterene|Hatterene, F|100/100
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Kingambit|Kingambit, M|401/401
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen1|[silent]
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Kingambit|fallen1|[silent]
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|-enditem|p1a: Iron Treads|Booster Energy
+|-activate|p1a: Iron Treads|ability: Quark Drive|[fromitem]
+|-start|p1a: Iron Treads|quarkdrivespe
+|move|p2a: Hatterene|Metronome|p2a: Hatterene
+|move|p2a: Hatterene|Horn Leech|p1a: Iron Treads|[from] move: Metronome
+|-damage|p1a: Iron Treads|270/321
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Pelipper|Pelipper, M|154/323
+|move|p2a: Hatterene|Metronome|p2a: Hatterene
+|move|p2a: Hatterene|Disable||[from] move: Metronome|[still]
+|-fail|p2a: Hatterene
+|
+|-weather|RainDance|[upkeep]
+|-sideend|p2: Lord kastisz|move: Light Screen
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Pelipper|U-turn|p2a: Hatterene
+|-damage|p2a: Hatterene|90/100
+|-damage|p1a: Pelipper|101/323|[from] item: Rocky Helmet|[of] p2a: Hatterene
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Kingambit|Kingambit, M|401/401|[from] U-turn
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen1|[silent]
+|move|p2a: Hatterene|Metronome|p2a: Hatterene
+|move|p2a: Hatterene|Echoed Voice|p1a: Kingambit|[from] move: Metronome
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|377/401
+|
+|-weather|none
+|-heal|p1a: Kingambit|401/401|[from] item: Leftovers
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Kingambit|fallen1|[silent]
+|switch|p1a: Iron Treads|Iron Treads|270/321
+|move|p2a: Hatterene|Metronome|p2a: Hatterene
+|move|p2a: Hatterene|Crunch|p1a: Iron Treads|[from] move: Metronome
+|-damage|p1a: Iron Treads|211/321
+|
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Iron Treads|Steel Beam|p2a: Hatterene
+|-supereffective|p2a: Hatterene
+|-damage|p2a: Hatterene|0 fnt
+|-damage|p1a: Iron Treads|50/321|[from] steelbeam
+|faint|p2a: Hatterene
+|
+|upkeep
+|
+|switch|p2a: Azelf|Azelf|100/100
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|switch|p1a: Pelipper|Pelipper, M|101/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|move|p2a: Azelf|Metronome|p2a: Azelf
+|move|p2a: Azelf|Low Kick|p1a: Pelipper|[from] move: Metronome
+|-resisted|p1a: Pelipper
+|-damage|p1a: Pelipper|83/323
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Azelf|Metronome|p2a: Azelf
+|move|p2a: Azelf|Baton Pass|p2a: Azelf|[from] move: Metronome
+|
+|switch|p2a: Tornadus|Tornadus-Therian, M|100/100|[from] Baton Pass
+|move|p1a: Pelipper|U-turn|p2a: Tornadus
+|-resisted|p2a: Tornadus
+|-damage|p2a: Tornadus|96/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 10 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, M|264/264|[from] U-turn
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-terastallize|p1a: Barraskewda|Water
+|move|p1a: Barraskewda|Liquidation|p2a: Tornadus
+|-crit|p2a: Tornadus
+|-damage|p2a: Tornadus|0 fnt
+|faint|p2a: Tornadus
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p2a: Azelf|Azelf|100/100
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Barraskewda|Liquidation|p2a: Azelf
+|-damage|p2a: Azelf|0 fnt
+|faint|p2a: Azelf
+|
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>
