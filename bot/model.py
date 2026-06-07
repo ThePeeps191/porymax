@@ -1,7 +1,6 @@
 # Kakuna model singleton: loads checkpoint once, exposes policy, tokenizer, and spaces.
 
 import logging
-import os
 import sys
 import tempfile
 import warnings
