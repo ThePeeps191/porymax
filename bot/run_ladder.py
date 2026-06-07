@@ -3,6 +3,7 @@
 import argparse
 import asyncio
 import sys
+import time
 
 from poke_env import (
     AccountConfiguration,
@@ -145,4 +146,17 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    for attempt in range(5):
+        try:
+            main()
+            break
+        except (KeyboardInterrupt, SystemExit):
+            break
+        except Exception as e:
+            msg = str(e)
+            if "JSONDecodeError" in type(e).__name__ or "Expecting value" in msg:
+                wait = 5 * (attempt + 1)
+                print(f"Login failed (server auth error). Retrying in {wait}s...")
+                time.sleep(wait)
+            else:
+                raise

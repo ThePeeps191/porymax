@@ -1,10 +1,10 @@
 Dragonite @ Leftovers  
 Ability: Multiscale  
-Tera Type: Flying  
+Tera Type: Normal  
 EVs: 252 Atk / 4 Def / 252 Spe  
 Jolly Nature  
 - Dragon Dance  
-- Tera Blast  
+- Extreme Speed  
 - Earthquake  
 - Substitute  
 
