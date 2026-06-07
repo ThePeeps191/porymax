@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9ou-2627161786</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9ou-2627161786<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PorymaxBot</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">tking33</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9ou-2627161786|init|battle
+|title|PorymaxBot vs. tking33
+|j|☆PorymaxBot
+|j|☆tking33
+|gametype|singles
+|player|p1|PorymaxBot|1|1091
+|player|p2|tking33|lusamine-nihilego|1014
+|gen|9
+|tier|[Gen 9] OU
+|rated|
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Endless Battle Clause: Forcing endless battles is banned
+|rule|Species Clause: Limit one of each Pokémon
+|rule|OHKO Clause: OHKO moves are banned
+|rule|Evasion Items Clause: Evasion items are banned
+|rule|Evasion Moves Clause: Evasion moves are banned
+|rule|Evasion Abilities Clause: Evasion abilities are banned
+|rule|Sleep Moves Clause: Sleep-inducing moves are banned
+|clearpoke
+|poke|p1|Pelipper, F|
+|poke|p1|Raging Bolt|
+|poke|p1|Overqwil, M|
+|poke|p1|Barraskewda, F|
+|poke|p1|Iron Treads|
+|poke|p1|Kingambit, M|
+|poke|p2|Dragonite, M|
+|poke|p2|Weezing-Galar, F|
+|poke|p2|Ting-Lu|
+|poke|p2|Kyurem|
+|poke|p2|Gholdengo|
+|poke|p2|Pecharunt|
+|teampreview
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by tking33)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|
+|teamsize|p1|6
+|teamsize|p2|6
+|start
+|switch|p1a: Overqwil|Overqwil, M|318/318
+|switch|p2a: Kyurem|Kyurem|100/100
+|-ability|p2a: Kyurem|Pressure
+|turn|1
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Kyurem|Ice Beam|p1a: Overqwil
+|-damage|p1a: Overqwil|0 fnt
+|faint|p1a: Overqwil
+|
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Pecharunt|Pecharunt|100/100
+|move|p1a: Barraskewda|Close Combat|p2a: Pecharunt
+|-immune|p2a: Pecharunt
+|
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|j| ThePeeps191
+|
+|switch|p1a: Iron Treads|Iron Treads|321/321
+|-enditem|p1a: Iron Treads|Booster Energy
+|-activate|p1a: Iron Treads|ability: Quark Drive|[fromitem]
+|-start|p1a: Iron Treads|quarkdrivespe
+|move|p2a: Pecharunt|Parting Shot|p1a: Iron Treads
+|-unboost|p1a: Iron Treads|atk|1
+|-unboost|p1a: Iron Treads|spa|1
+|
+|switch|p2a: Ting-Lu|Ting-Lu|100/100|[from] Parting Shot
+|-ability|p2a: Ting-Lu|Vessel of Ruin
+|
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Kyurem|Kyurem|100/100
+|-ability|p2a: Kyurem|Pressure
+|move|p1a: Iron Treads|Stealth Rock|p2a: Kyurem
+|-sidestart|p2: tking33|move: Stealth Rock
+|
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Iron Treads|Steel Beam|p2a: Kyurem
+|-supereffective|p2a: Kyurem
+|-damage|p2a: Kyurem|31/100
+|-damage|p1a: Iron Treads|160/321|[from] steelbeam
+|move|p2a: Kyurem|Ice Beam|p1a: Iron Treads
+|-damage|p1a: Iron Treads|0 fnt
+|faint|p1a: Iron Treads
+|-end|p1a: Iron Treads|Quark Drive|[silent]
+|
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Pecharunt|Pecharunt|100/100
+|move|p1a: Barraskewda|Close Combat|p2a: Pecharunt
+|-immune|p2a: Pecharunt
+|
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Kingambit|Kingambit, M|401/401
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen2|[silent]
+|move|p2a: Pecharunt|Malignant Chain|p1a: Kingambit
+|-immune|p1a: Kingambit
+|
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Pecharunt|Parting Shot|p1a: Kingambit
+|-unboost|p1a: Kingambit|atk|1
+|-unboost|p1a: Kingambit|spa|1
+|
+|switch|p2a: Weezing|Weezing-Galar, F|100/100|[from] Parting Shot
+|-ability|p2a: Weezing|Neutralizing Gas
+|move|p1a: Kingambit|Swords Dance|p1a: Kingambit
+|-boost|p1a: Kingambit|atk|2
+|
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Weezing|Will-O-Wisp|p1a: Kingambit
+|-status|p1a: Kingambit|brn
+|move|p1a: Kingambit|Iron Head|p2a: Weezing
+|-supereffective|p2a: Weezing
+|-damage|p2a: Weezing|53/100
+|
+|-damage|p1a: Kingambit|376/401 brn|[from] brn
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Weezing|Defog|p1a: Kingambit
+|-unboost|p1a: Kingambit|evasion|1
+|-sideend|p2: tking33|Stealth Rock|[from] move: Defog|[of] p2a: Weezing
+|move|p1a: Kingambit|Swords Dance|p1a: Kingambit
+|-boost|p1a: Kingambit|atk|2
+|
+|-heal|p1a: Kingambit|401/401 brn|[from] item: Leftovers
+|-damage|p1a: Kingambit|376/401 brn|[from] brn
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p2a: Weezing|ability: Neutralizing Gas
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen2|[silent]
+|switch|p2a: Ting-Lu|Ting-Lu|100/100
+|-ability|p2a: Ting-Lu|Vessel of Ruin
+|move|p1a: Kingambit|Iron Head|p2a: Ting-Lu
+|-damage|p2a: Ting-Lu|60/100
+|
+|-heal|p1a: Kingambit|401/401 brn|[from] item: Leftovers
+|-heal|p2a: Ting-Lu|66/100|[from] item: Leftovers
+|-damage|p1a: Kingambit|376/401 brn|[from] brn
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Kingambit|fallen2|[silent]
+|switch|p1a: Pelipper|Pelipper, F|323/323
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|move|p2a: Ting-Lu|Earthquake|p1a: Pelipper
+|-immune|p1a: Pelipper
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Ting-Lu|72/100|[from] item: Leftovers
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Ting-Lu|Stealth Rock|p1a: Pelipper
+|-sidestart|p1: PorymaxBot|move: Stealth Rock
+|move|p1a: Pelipper|Weather Ball|p2a: Ting-Lu
+|-supereffective|p2a: Ting-Lu
+|-damage|p2a: Ting-Lu|32/100
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Ting-Lu|38/100|[from] item: Leftovers
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Kyurem|Kyurem|31/100
+|-ability|p2a: Kyurem|Pressure
+|move|p1a: Pelipper|Weather Ball|p2a: Kyurem
+|-resisted|p2a: Kyurem
+|-damage|p2a: Kyurem|6/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Kingambit|Kingambit, M|376/401 brn
+|-damage|p1a: Kingambit|351/401 brn|[from] Stealth Rock
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen2|[silent]
+|move|p2a: Kyurem|Freeze-Dry|p1a: Kingambit
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|243/401 brn
+|
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kingambit|268/401 brn|[from] item: Leftovers
+|-damage|p1a: Kingambit|243/401 brn|[from] brn
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Ting-Lu|Ting-Lu|38/100
+|-ability|p2a: Ting-Lu|Vessel of Ruin
+|-end|p1a: Kingambit|fallen2|[silent]
+|switch|p1a: Barraskewda|Barraskewda, F|264/264
+|-damage|p1a: Barraskewda|231/264|[from] Stealth Rock
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Ting-Lu|44/100|[from] item: Leftovers
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Pecharunt|Pecharunt|100/100
+|-terastallize|p1a: Barraskewda|Water
+|move|p1a: Barraskewda|Aqua Jet|p2a: Pecharunt
+|-damage|p2a: Pecharunt|68/100
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Kingambit|Kingambit, M|243/401 brn
+|-damage|p1a: Kingambit|218/401 brn|[from] Stealth Rock
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen2|[silent]
+|move|p2a: Pecharunt|Malignant Chain|p1a: Kingambit
+|-immune|p1a: Kingambit
+|
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kingambit|243/401 brn|[from] item: Leftovers
+|-damage|p1a: Kingambit|218/401 brn|[from] brn
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Kingambit|fallen2|[silent]
+|switch|p1a: Raging Bolt|Raging Bolt|422/422
+|-damage|p1a: Raging Bolt|370/422|[from] Stealth Rock
+|-enditem|p1a: Raging Bolt|Booster Energy
+|-activate|p1a: Raging Bolt|ability: Protosynthesis|[fromitem]
+|-start|p1a: Raging Bolt|protosynthesisspa
+|move|p2a: Pecharunt|Foul Play|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|316/422
+|
+|-weather|none
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Raging Bolt|Draco Meteor|p2a: Pecharunt
+|-damage|p2a: Pecharunt|0 fnt
+|-unboost|p1a: Raging Bolt|spa|2
+|faint|p2a: Pecharunt
+|
+|upkeep
+|
+|switch|p2a: Dragonite|Dragonite, M|100/100
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Weezing|Weezing-Galar, F|53/100
+|-ability|p2a: Weezing|Neutralizing Gas
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|switch|p1a: Pelipper|Pelipper, F|323/323
+|-damage|p1a: Pelipper|243/323|[from] Stealth Rock
+|
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p2a: Weezing|ability: Neutralizing Gas
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|switch|p2a: Kyurem|Kyurem|6/100
+|-ability|p2a: Kyurem|Pressure
+|move|p1a: Pelipper|U-turn|p2a: Kyurem
+|-damage|p2a: Kyurem|0 fnt
+|faint|p2a: Kyurem
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, F, tera:Water|231/264|[from] U-turn
+|-damage|p1a: Barraskewda|198/264|[from] Stealth Rock
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|
+|switch|p2a: Weezing|Weezing-Galar, F|53/100
+|-ability|p2a: Weezing|Neutralizing Gas
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-terastallize|p2a: Weezing|Grass
+|move|p1a: Barraskewda|Liquidation|p2a: Weezing
+|-resisted|p2a: Weezing
+|-damage|p2a: Weezing|7/100
+|move|p2a: Weezing|Will-O-Wisp|p1a: Barraskewda
+|-status|p1a: Barraskewda|brn
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Barraskewda|182/264 brn|[from] brn
+|upkeep
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Barraskewda|Liquidation|p2a: Weezing
+|-resisted|p2a: Weezing
+|-damage|p2a: Weezing|0 fnt
+|faint|p2a: Weezing
+|-end|p2a: Weezing|ability: Neutralizing Gas
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Barraskewda|166/264 brn|[from] brn
+|upkeep
+|
+|switch|p2a: Gholdengo|Gholdengo|100/100
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Raging Bolt|Raging Bolt|316/422
+|-damage|p1a: Raging Bolt|264/422|[from] Stealth Rock
+|move|p2a: Gholdengo|Shadow Ball|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|101/422
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p1a: Raging Bolt|Thunderclap|p2a: Gholdengo
+|-damage|p2a: Gholdengo|53/100
+|move|p2a: Gholdengo|Shadow Ball|p1a: Raging Bolt
+|-damage|p1a: Raging Bolt|0 fnt
+|faint|p1a: Raging Bolt
+|-end|p1a: Raging Bolt|Protosynthesis|[silent]
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Kingambit|Kingambit, M|218/401 brn
+|-damage|p1a: Kingambit|193/401 brn|[from] Stealth Rock
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen3|[silent]
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Ting-Lu|Ting-Lu|44/100
+|-ability|p2a: Ting-Lu|Vessel of Ruin
+|move|p1a: Kingambit|Swords Dance|p1a: Kingambit
+|-boost|p1a: Kingambit|atk|2
+|
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kingambit|218/401 brn|[from] item: Leftovers
+|-heal|p2a: Ting-Lu|51/100|[from] item: Leftovers
+|-damage|p1a: Kingambit|193/401 brn|[from] brn
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Kingambit|fallen3|[silent]
+|switch|p1a: Pelipper|Pelipper, F|243/323
+|-damage|p1a: Pelipper|163/323|[from] Stealth Rock
+|move|p2a: Ting-Lu|Earthquake|p1a: Pelipper
+|-immune|p1a: Pelipper
+|
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Ting-Lu|57/100|[from] item: Leftovers
+|upkeep
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p2a: Gholdengo|Gholdengo|53/100
+|move|p1a: Pelipper|Weather Ball|p2a: Gholdengo
+|-damage|p2a: Gholdengo|0 fnt
+|faint|p2a: Gholdengo
+|
+|-weather|none
+|upkeep
+|
+|switch|p2a: Dragonite|Dragonite, M|100/100
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Dragonite|Dragon Dance|p2a: Dragonite
+|-boost|p2a: Dragonite|atk|1
+|-boost|p2a: Dragonite|spe|1
+|move|p1a: Pelipper|U-turn|p2a: Dragonite
+|-resisted|p2a: Dragonite
+|-damage|p2a: Dragonite|98/100
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Kingambit|Kingambit, M|193/401 brn|[from] U-turn
+|-damage|p1a: Kingambit|168/401 brn|[from] Stealth Rock
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen3|[silent]
+|
+|-heal|p1a: Kingambit|193/401 brn|[from] item: Leftovers
+|-damage|p1a: Kingambit|168/401 brn|[from] brn
+|upkeep
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|-end|p1a: Kingambit|fallen3|[silent]
+|switch|p1a: Barraskewda|Barraskewda, F, tera:Water|166/264 brn
+|-damage|p1a: Barraskewda|133/264 brn|[from] Stealth Rock
+|move|p2a: Dragonite|Fire Punch|p1a: Barraskewda
+|-resisted|p1a: Barraskewda
+|-damage|p1a: Barraskewda|17/264 brn
+|
+|-damage|p1a: Barraskewda|1/264 brn|[from] brn
+|upkeep
+|turn|32
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Pelipper|Pelipper, F|163/323
+|-damage|p1a: Pelipper|83/323|[from] Stealth Rock
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Pelipper
+|move|p2a: Dragonite|Fire Punch|p1a: Pelipper
+|-resisted|p1a: Pelipper
+|-damage|p1a: Pelipper|57/323
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|33
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Dragonite|Fire Punch|p1a: Pelipper
+|-resisted|p1a: Pelipper
+|-damage|p1a: Pelipper|28/323
+|-status|p1a: Pelipper|brn
+|move|p1a: Pelipper|Roost|p1a: Pelipper
+|-heal|p1a: Pelipper|190/323 brn
+|-singleturn|p1a: Pelipper|move: Roost
+|
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Pelipper|170/323 brn|[from] brn
+|upkeep
+|turn|34
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|switch|p1a: Kingambit|Kingambit, M|168/401 brn
+|-damage|p1a: Kingambit|143/401 brn|[from] Stealth Rock
+|-activate|p1a: Kingambit|ability: Supreme Overlord
+|-start|p1a: Kingambit|fallen3|[silent]
+|move|p2a: Dragonite|Scale Shot|p1a: Kingambit
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|109/401 brn
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|75/401 brn
+|-resisted|p1a: Kingambit
+|-crit|p1a: Kingambit
+|-damage|p1a: Kingambit|25/401 brn
+|-resisted|p1a: Kingambit
+|-damage|p1a: Kingambit|0 fnt
+|faint|p1a: Kingambit
+|-end|p1a: Kingambit|fallen3|[silent]
+|-hitcount|p1: Kingambit|4
+|-unboost|p2a: Dragonite|def|1
+|-boost|p2a: Dragonite|spe|1
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Pelipper|Pelipper, F|170/323 brn
+|-damage|p1a: Pelipper|90/323 brn|[from] Stealth Rock
+|turn|35
+|inactive|Time left: 150 sec this turn | 150 sec total
+|
+|move|p2a: Dragonite|Scale Shot|p1a: Pelipper
+|-damage|p1a: Pelipper|36/323 brn
+|-damage|p1a: Pelipper|0 fnt
+|faint|p1a: Pelipper
+|-hitcount|p1: Pelipper|2
+|-unboost|p2a: Dragonite|def|1
+|-boost|p2a: Dragonite|spe|1
+|
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total | 5 sec grace
+|
+|switch|p1a: Barraskewda|Barraskewda, F, tera:Water|1/264 brn
+|-damage|p1a: Barraskewda|0 fnt|[from] Stealth Rock
+|faint|p1a: Barraskewda
+|
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

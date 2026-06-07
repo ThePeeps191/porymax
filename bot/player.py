@@ -18,6 +18,7 @@ from bot.team_guide import (
     get_lead_species,
     get_move_failure_actions,
     get_preferred_actions,
+    is_action_immune,
     is_guide_active,
 )
 
@@ -75,7 +76,6 @@ class PorymaxPlayer(Player):
 
     def _on_battle_start(self, battle):
         tag = battle.battle_tag
-        opp_name = getattr(battle, "opponent_username", "???")
         our_names = [p.species for p in battle.team.values() if p]
         opp_names = [p.species for p in battle.teampreview_opponent_team if p]
         print(f"\n  BATTLE START: {tag}")
@@ -144,8 +144,9 @@ class PorymaxPlayer(Player):
             )
 
             from bot.mcts import run_mcts
-            action_idx = run_mcts(
+            action_idx, new_hidden = run_mcts(
                 PorymaxModel.policy(), obs_t, rl2s_t, time_t, battle,
+                hidden_state=bs["hidden_state"],
                 n_sims=50, c_puct=1.0,
             )
 
@@ -156,7 +157,7 @@ class PorymaxPlayer(Player):
                 action_idx, battle, PorymaxModel.act_space()
             )
 
-            bs["hidden_state"] = None
+            bs["hidden_state"] = new_hidden
             bs["rl2s"] = next_rl2s(0.0, action_idx, _ACTION_SIZE)
             bs["time_idx"] += 1
             bs["last_action_idx"] = action_idx
@@ -184,7 +185,14 @@ _ACTION_SIZE = 13
 
 
 def _apply_guide(battle, action_idx, bs):
+    action_idx = _apply_immunity(battle, action_idx)
     return _apply_forced_switch(battle, action_idx, bs)
+
+
+def _apply_immunity(battle, action_idx):
+    if is_action_immune(action_idx, battle):
+        return _resample_any(battle)
+    return action_idx
 
 
 def _apply_forced_switch(battle, action_idx, bs):
@@ -192,7 +200,7 @@ def _apply_forced_switch(battle, action_idx, bs):
     if not forced:
         return _apply_hazard_check(battle, action_idx, bs)
 
-    if random.random() < 0.50:
+    if random.random() < 0.15:
         forced_list = sorted(forced)
         return random.choice(forced_list)
 
@@ -240,25 +248,24 @@ def _apply_team_hints(battle, action_idx):
         return action_idx
     if action_idx in preferred:
         return action_idx
-    if random.random() < 0.20:
+    if random.random() < 0.10:
         return random.choice(sorted(preferred))
     return action_idx
 
 
 def _resample_move(battle, action_idx, bs):
-    if random.random() < 0.70:
+    if random.random() < 0.30:
         return _resample_any(battle)
     return _apply_team_hints(battle, action_idx)
 
 
 def _resample_any(battle):
-    import random as _random
     moves = list(range(len(battle.available_moves)))
     switches = [4 + i for i in range(len(battle.available_switches))]
     all_legal = moves + switches
     if battle.can_tera:
         all_legal = all_legal + [9 + i for i in range(len(battle.available_moves))]
-    return _random.choice(all_legal) if all_legal else 0
+    return random.choice(all_legal) if all_legal else 0
 
 
 def _opp_hp(battle):

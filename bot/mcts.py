@@ -1,28 +1,29 @@
 # Batched MCTS: critic-guided UCB1 search over legal actions using Kakuna's value head.
 
 import math
-import random
 
 import numpy as np
 import torch
 
 
-def run_mcts(policy, obs_t, rl2s_t, time_t, battle, n_sims=50, c_puct=1.0):
-    """Run MCTS and return the best action index.
+def run_mcts(policy, obs_t, rl2s_t, time_t, battle, hidden_state, n_sims=50, c_puct=1.0):
+    """Run MCTS and return (best_action_idx, new_hidden_state).
 
     Depth-1 MCTS with batched critic evaluation. Compares 13 legal actions using
     UCB1, where each child's Q-value comes from Kakuna's NCriticsTwoHot value head
     (which already accounts for expected opponent response from self-play training).
     """
     device = obs_t["numbers"].device
-    illegal_mask = obs_t["illegal_actions"]  # (1, 1, 13)
+    illegal_mask = obs_t["illegal_actions"]
     legal = torch.where(~illegal_mask[0, 0])[0].tolist()
     if not legal:
-        return 0
+        return 0, hidden_state
 
     with torch.no_grad():
         tstep_emb = policy.tstep_encoder(obs=obs_t, rl2s=rl2s_t)
-        traj_emb, _ = policy.traj_encoder(tstep_emb, time_idxs=time_t)
+        traj_emb, new_hidden = policy.traj_encoder(
+            tstep_emb, time_idxs=time_t, hidden_state=hidden_state,
+        )
         action_dist = policy.actor(
             traj_emb,
             straight_from_obs={"illegal_actions": obs_t["illegal_actions"]},
@@ -59,7 +60,7 @@ def run_mcts(policy, obs_t, rl2s_t, time_t, battle, n_sims=50, c_puct=1.0):
         root.children[best].visits += 1
         root.visits += 1
 
-    return max(legal, key=lambda a: root.children[a].visits)
+    return max(legal, key=lambda a: root.children[a].visits), new_hidden
 
 
 class _Node:
@@ -72,12 +73,6 @@ class _Node:
         self.visits = 0
         self.prior = prior
         self.q_norm = q_norm
-
-    @property
-    def avg_value(self):
-        if self.visits == 0:
-            return self.q_norm
-        return self.q_norm
 
 
 def _select_ucb1(root, legal, c_puct):

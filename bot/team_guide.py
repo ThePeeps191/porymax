@@ -18,14 +18,26 @@ OGERPON_WELLSPRING = "ogerpon-wellspring"
 TEAM_LEAD = "pelipper"
 LEAD_VS_KYUREM = "iron treads"
 
-GROUND_TYPES = {
-    "great tusk", "landorus-therian", "gliscor", "clodsire", "garchomp",
-    "iron treads", "ting-lu", "hippowdon", "gastrodon", "excadrill",
-    "ursaluna", "ursaluna-bloodmoon", "sandaconda", "mamoswine", "quagsire",
+WATER_IMMUNE_SPECIES = {
+    "ogerpon-wellspring", "vaporeon", "clodsire", "gastrodon", "quagsire",
+    "alomomola", "dondozo", "toxapex", "jellicent", "volcanion",
+    "cacturne", "parasect", "seismitoad", "politoed", "poliwrath",
+    "lapras", "mantine", "lanturn", "suicune", "maractus",
 }
-WATER_ABSORB = {
-    "clodsire", "gastrodon", "quagsire", "vaporeon", "alomomola", "dondozo",
-    "toxapex", "ogerpon-wellspring",
+FLASH_FIRE_SPECIES = {
+    "heatran", "arcanine", "arcanine-hisui", "houndoom", "ninetales",
+    "typhlosion", "typhlosion-hisui", "ceruledge", "armarouge",
+}
+
+TYPE_IMMUNE = {
+    ("normal", "ghost"): True,
+    ("fighting", "ghost"): True,
+    ("ground", "flying"): True,
+    ("electric", "ground"): True,
+    ("poison", "steel"): True,
+    ("psychic", "dark"): True,
+    ("dragon", "fairy"): True,
+    ("ghost", "normal"): True,
 }
 
 
@@ -142,6 +154,38 @@ def get_move_failure_actions(battle, last_action_idx, last_opp_hp_pct, last_opp_
         if abs(curr_hp - last_opp_hp_pct) < 0.005:
             return last_action_idx
     return None
+
+
+def is_action_immune(action_idx, battle):
+    opp = battle.opponent_active_pokemon
+    if opp is None:
+        return False
+
+    opp_species = opp.species.lower() if opp.species else ""
+    opp_types = {t.name.lower() if hasattr(t, "name") else str(t).lower() for t in (opp.types or []) if t}
+
+    move_idx = None
+    if 0 <= action_idx <= 3:
+        move_idx = action_idx
+    elif action_idx >= 9 and battle.can_tera:
+        move_idx = action_idx - 9
+
+    if move_idx is not None and move_idx < len(battle.available_moves):
+        move = battle.available_moves[move_idx]
+        move_type = move.type.name.lower() if hasattr(move.type, "name") else str(move.type).lower()
+
+        if move_type == "water":
+            if opp_species in WATER_IMMUNE_SPECIES:
+                return True
+        if move_type == "fire":
+            if opp_species in FLASH_FIRE_SPECIES:
+                return True
+
+        for opp_type in opp_types:
+            if (move_type, opp_type) in TYPE_IMMUNE:
+                return True
+
+    return False
 
 
 def _rain_is_active(battle):
