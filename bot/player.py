@@ -52,6 +52,7 @@ class PorymaxPlayer(Player):
         self._team_file = team_file
         self._use_guide = is_guide_active(team_file)
         self._battle_states = {}
+        self._game_counter = 0
 
     def teampreview(self, battle):
         if self._use_guide:
@@ -75,10 +76,12 @@ class PorymaxPlayer(Player):
         return self._policy_choose(battle)
 
     def _on_battle_start(self, battle):
+        self._game_counter += 1
         tag = battle.battle_tag
         our_names = [p.species for p in battle.team.values() if p]
         opp_names = [p.species for p in battle.teampreview_opponent_team if p]
-        print(f"\n  BATTLE START: {tag}")
+        print(f"\n  Game #{self._game_counter}")
+        print(f"  BATTLE START: {tag}")
         print(f"  Us: {', '.join(our_names)}")
         print(f"  Them: {', '.join(opp_names)}")
         print(f"  Spectate: https://play.pokemonshowdown.com/{tag}\n")
