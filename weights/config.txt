@@ -119,7 +119,8 @@ SigmaReparam.fast_init = False
 # Parameters for TformerTrajEncoder:
 # ==============================================================================
 TformerTrajEncoder.activation = 'leaky_relu'
-TformerTrajEncoder.attention_type = @transformer.FlashAttention
+#TformerTrajEncoder.attention_type = @transformer.FlashAttention
+TformerTrajEncoder.attention_type = @transformer.VanillaAttention
 TformerTrajEncoder.d_ff = 3600
 TformerTrajEncoder.d_model = 900
 TformerTrajEncoder.dropout_attn = 0.0
