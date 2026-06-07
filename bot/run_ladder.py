@@ -97,12 +97,14 @@ def main():
         team=team_set,
         battle_format=args.format,
         temperature=args.temperature,
+        team_file=args.team_file,
     )
 
     n_battles = args.battles if args.battles > 0 else 999_999
     label = "public server" if args.public else "local server"
+    guide_label = " (team guide active)" if player._use_guide else ""
     print(
-        f"Bot '{args.username}' running on {label} "
+        f"Bot '{args.username}' running on {label}{guide_label} "
         f"(format: {args.format}, battles: {n_battles if args.battles > 0 else 'unlimited'})"
     )
     print("Accepting challenges. Press Ctrl+C to stop.")

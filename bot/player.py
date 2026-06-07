@@ -1,5 +1,7 @@
 # poke_env.Player subclass: runs Kakuna inference (optionally MCTS) in choose_move().
 
+import random
+
 from poke_env.player import BattleOrder, Player
 
 from bot.model import PorymaxModel
@@ -10,6 +12,7 @@ from bot.preprocess import (
     next_rl2s,
     obs_to_tensors,
 )
+from bot.team_guide import get_preferred_actions, is_guide_active
 
 
 class PorymaxPlayer(Player):
@@ -23,6 +26,7 @@ class PorymaxPlayer(Player):
         battle_format="gen9ou",
         temperature=1.0,
         mcts_enabled=False,
+        team_file=None,
         **kwargs,
     ):
         player_kwargs = {"battle_format": battle_format, **kwargs}
@@ -37,6 +41,8 @@ class PorymaxPlayer(Player):
 
         self._temperature = temperature
         self._mcts_enabled = mcts_enabled
+        self._team_file = team_file
+        self._use_guide = is_guide_active(team_file)
         self._battle_states = {}
 
     def choose_move(self, battle):
@@ -68,6 +74,10 @@ class PorymaxPlayer(Player):
                 )
 
             action_idx = int(actions.squeeze().cpu().numpy())
+
+            if self._use_guide:
+                action_idx = _apply_guide_hint(action_idx, battle)
+
             order = action_idx_to_order(
                 action_idx, battle, PorymaxModel.act_space()
             )
@@ -92,6 +102,17 @@ class PorymaxPlayer(Player):
 
 
 _ACTION_SIZE = 13
+
+
+def _apply_guide_hint(action_idx, battle):
+    preferred = get_preferred_actions(battle)
+    if not preferred:
+        return action_idx
+    if action_idx in preferred:
+        return action_idx
+    if random.random() < 0.20:
+        return random.choice(sorted(preferred))
+    return action_idx
 
 
 def _fresh_battle_state():
